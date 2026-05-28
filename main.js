@@ -85,6 +85,79 @@
     steps.forEach(s => pio.observe(s));
   });
 
+  /* ============ Capacidades — scroll-driven showcase ============ */
+  const capsRight = document.querySelector('.caps-pin-right');
+  if(capsRight && window.matchMedia('(min-width: 1025px)').matches){
+    const triggers = capsRight.querySelectorAll('.caps-trigger');
+    const cards    = capsRight.querySelectorAll('.caps-card');
+    const cpNow    = document.querySelector('.caps-pager .cp-now');
+    const cpFill   = document.querySelector('.caps-pager .cp-fill');
+    const total    = triggers.length;
+
+    function setActive(i){
+      cards.forEach((c, idx) => {
+        c.classList.toggle('is-active', idx === i);
+        c.classList.toggle('is-past',   idx <  i);  // las anteriores giran hacia arriba
+      });
+      if(cpNow)  cpNow.textContent  = String(i + 1).padStart(2, '0');
+      if(cpFill) cpFill.style.width = `${((i + 1) / total) * 100}%`;
+    }
+
+    const capsIO = new IntersectionObserver((entries) => {
+      // Cuando hay varios triggers visibles, tomamos el más cercano al centro
+      let bestIdx = -1, bestRatio = 0;
+      entries.forEach(e => {
+        if(e.isIntersecting && e.intersectionRatio > bestRatio){
+          bestRatio = e.intersectionRatio;
+          bestIdx   = parseInt(e.target.dataset.step, 10);
+        }
+      });
+      if(bestIdx >= 0) setActive(bestIdx);
+    }, { threshold: [0, .25, .5, .75, 1], rootMargin: '-40% 0px -40% 0px' });
+
+    triggers.forEach(t => capsIO.observe(t));
+  }
+
+  /* ============ Mobile menu toggle ============ */
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  function closeMenu(){
+    if(!navToggle || !mobileMenu) return;
+    navToggle.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Abrir menú');
+    mobileMenu.classList.remove('is-open');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('menu-open');
+  }
+  function openMenu(){
+    if(!navToggle || !mobileMenu) return;
+    navToggle.classList.add('is-open');
+    navToggle.setAttribute('aria-expanded', 'true');
+    navToggle.setAttribute('aria-label', 'Cerrar menú');
+    mobileMenu.classList.add('is-open');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('menu-open');
+  }
+  if(navToggle && mobileMenu){
+    navToggle.addEventListener('click', ()=>{
+      if(navToggle.classList.contains('is-open')) closeMenu();
+      else openMenu();
+    });
+    // Cierra al clickear un link del menú
+    mobileMenu.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click', closeMenu);
+    });
+    // Cierra con Escape
+    document.addEventListener('keydown', e=>{
+      if(e.key === 'Escape' && mobileMenu.classList.contains('is-open')) closeMenu();
+    });
+    // Cierra si pasa a desktop
+    window.addEventListener('resize', ()=>{
+      if(window.innerWidth > 1024 && mobileMenu.classList.contains('is-open')) closeMenu();
+    });
+  }
+
   /* ============ Smooth anchor scroll ============ */
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
     a.addEventListener('click', e=>{

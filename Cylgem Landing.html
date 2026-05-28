@@ -21,13 +21,27 @@
       <a href="#top" class="brand">
         <img src="img/logo.png" alt="Cylgem Logo" class="brand-logo" />
       </a>
-      <ul>
+      <ul class="nav-links">
         <li><a href="#empresa">Empresa</a></li>
         <li><a href="#capacidades">Capacidades</a></li>
         <li><a href="#clientes">Clientes</a></li>
         <li><a href="#planta">Planta</a></li>
       </ul>
       <a href="mailto:comercial@cylgem.com.ar" class="cta">Cotizar proyecto <span class="arr">→</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <ul>
+        <li><a href="#empresa">Empresa</a></li>
+        <li><a href="#capacidades">Capacidades</a></li>
+        <li><a href="#clientes">Clientes</a></li>
+        <li><a href="#planta">Planta</a></li>
+        <li><a href="mailto:comercial@cylgem.com.ar" class="mobile-cta">Cotizar proyecto <span class="arr">→</span></a></li>
+      </ul>
     </div>
   </nav>
 
@@ -35,13 +49,13 @@
   <header class="hero" id="top">
     <div class="bg" id="heroBg">
       <div class="bg-slide"
-        style="background-image: linear-gradient(180deg, rgba(5,5,5,.75) 0%, rgba(5,5,5,.6) 40%, rgba(5,5,5,.85) 100%), url('img/header/Generated Image May 13, 2026 - 10_20PM.jpg')">
+        style="background-image: linear-gradient(180deg, rgba(5,5,5,.75) 0%, rgba(5,5,5,.6) 40%, rgba(5,5,5,.85) 100%), url('img/linea_smt.jpg')">
       </div>
       <div class="bg-slide"
-        style="background-image: linear-gradient(180deg, rgba(5,5,5,.75) 0%, rgba(5,5,5,.6) 40%, rgba(5,5,5,.85) 100%), url('img/header/Generated Image May 13, 2026 - 10_10PM.jpg')">
+        style="background-image: linear-gradient(180deg, rgba(5,5,5,.75) 0%, rgba(5,5,5,.6) 40%, rgba(5,5,5,.85) 100%), url('img/insercion_tht.jpg')">
       </div>
       <div class="bg-slide"
-        style="background-image: linear-gradient(180deg, rgba(5,5,5,.75) 0%, rgba(5,5,5,.6) 40%, rgba(5,5,5,.85) 100%), url('img/header/Generated Image May 13, 2026 - 10_12PM.jpg')">
+        style="background-image: linear-gradient(180deg, rgba(5,5,5,.75) 0%, rgba(5,5,5,.6) 40%, rgba(5,5,5,.85) 100%), url('img/linea_smt.jpg')">
       </div>
     </div>
     <div class="grain"></div>
@@ -215,10 +229,10 @@
         <span class="n">/ 02</span><span>Capacidades</span><span class="line"></span>
       </div>
 
-      <div class="caps-grid">
+      <div class="caps-grid caps-pin-grid">
 
-        <!-- Izquierda: header + métricas clave -->
-        <div class="caps-left">
+        <!-- Izquierda: pinned mientras se scrollea -->
+        <div class="caps-left caps-pin-left">
           <div class="live-pill dark reveal" data-d="0" style="margin-bottom: 18px;">
             <span class="dot"></span><span>Planta operativa · IATF 16949</span>
           </div>
@@ -247,60 +261,112 @@
               <div class="mini-bar" style="--w: 95%;"></div>
             </div>
           </div>
+
+          <!-- Pager: indica capacidad activa -->
+          <div class="caps-pager">
+            <span class="cp-now">01</span>
+            <span class="cp-bar"><span class="cp-fill"></span></span>
+            <span class="cp-total">04</span>
+          </div>
         </div>
 
-        <!-- Derecha: lista de capacidades -->
-        <div class="caps-right">
-          <div class="caps-list stagger reveal">
+        <!-- Derecha: stage sticky + scroll triggers -->
+        <div class="caps-right caps-pin-right">
 
-            <div class="cap-row">
-              <div class="cap-n mono">01</div>
-              <div class="icon-tile cap-icon">
+          <!-- Stage: tarjeta grande que cambia de capacidad -->
+          <div class="caps-stage">
+
+            <div class="caps-card is-active" data-card="0">
+              <div class="ccard-num mono">01</div>
+              <div class="ccard-icon">
                 <svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 3v4M15 3v4M9 17v4M15 17v4M3 9h4M3 15h4M17 9h4M17 15h4"/></svg>
               </div>
-              <div class="cap-body">
-                <div class="cap-title">Manufactura SMT &amp; THT</div>
-                <div class="cap-spec">Alta velocidad · Presión positiva · 0201 → BGA · AOI 3D · Conformal coating</div>
+              <div class="ccard-eyebrow">Etapa 01 · Manufactura</div>
+              <h3 class="ccard-title">Manufactura SMT &amp; THT</h3>
+              <p class="ccard-desc">
+                Líneas SMT de alta velocidad en sala con presión positiva, capaces de procesar
+                desde componentes 0201 hasta BGAs finos. Inserción THT manual y por ola
+                selectiva, con conformal coating opcional para entornos exigentes.
+              </p>
+              <div class="ccard-tags">
+                <span>0201 → BGA</span>
+                <span>Presión positiva</span>
+                <span>AOI 3D</span>
+                <span>Conformal coating</span>
+                <span>90K pts/h</span>
               </div>
-              <div class="cap-arr">→</div>
             </div>
 
-            <div class="cap-row">
-              <div class="cap-n mono">02</div>
-              <div class="icon-tile cap-icon">
+            <div class="caps-card" data-card="1">
+              <div class="ccard-num mono">02</div>
+              <div class="ccard-icon">
                 <svg viewBox="0 0 24 24"><path d="M4 6h6M14 6h6M4 12h16M4 18h6M14 18h6"/><circle cx="12" cy="6" r="2"/><circle cx="12" cy="18" r="2"/></svg>
               </div>
-              <div class="cap-body">
-                <div class="cap-title">Ingeniería y desarrollo</div>
-                <div class="cap-spec">Hardware · Firmware · Prototipado rápido · Lab con cámara de shock térmico</div>
+              <div class="ccard-eyebrow">Etapa 02 · Ingeniería</div>
+              <h3 class="ccard-title">Ingeniería y desarrollo</h3>
+              <p class="ccard-desc">
+                Equipo propio de hardware y firmware que te acompaña desde el esquemático
+                hasta la producción serie. Prototipado rápido in-house y laboratorio con
+                cámara de shock térmico para validar diseños bajo condiciones extremas.
+              </p>
+              <div class="ccard-tags">
+                <span>Hardware</span>
+                <span>Firmware</span>
+                <span>Prototipado rápido</span>
+                <span>Lab térmico</span>
+                <span>-55 / +125 °C</span>
               </div>
-              <div class="cap-arr">→</div>
             </div>
 
-            <div class="cap-row">
-              <div class="cap-n mono">03</div>
-              <div class="icon-tile cap-icon">
+            <div class="caps-card" data-card="2">
+              <div class="ccard-num mono">03</div>
+              <div class="ccard-icon">
                 <svg viewBox="0 0 24 24"><path d="M12 2L4 6v6c0 5.25 3.75 10.15 8 11.5C16.25 22.15 20 17.25 20 12V6L12 2z"/><polyline points="9 12 11 14 15 10"/></svg>
               </div>
-              <div class="cap-body">
-                <div class="cap-title">Test funcional y calidad</div>
-                <div class="cap-spec">100% ICT por unidad · Burn-in 48 h · MES trazabilidad · IATF 16949</div>
+              <div class="ccard-eyebrow">Etapa 03 · Calidad</div>
+              <h3 class="ccard-title">Test funcional y calidad</h3>
+              <p class="ccard-desc">
+                100% de las unidades testeadas con ICT dedicado por producto. Burn-in
+                de 48 horas estándar para validar fiabilidad de largo plazo. Trazabilidad
+                MES unitaria y certificación IATF 16949 en cada paso del proceso.
+              </p>
+              <div class="ccard-tags">
+                <span>100% ICT</span>
+                <span>Burn-in 48 h</span>
+                <span>MES</span>
+                <span>IATF 16949</span>
+                <span>&lt; 500 PPM</span>
               </div>
-              <div class="cap-arr">→</div>
             </div>
 
-            <div class="cap-row">
-              <div class="cap-n mono">04</div>
-              <div class="icon-tile cap-icon">
+            <div class="caps-card" data-card="3">
+              <div class="ccard-num mono">04</div>
+              <div class="ccard-icon">
                 <svg viewBox="0 0 24 24"><path d="M3 7h12v9H3z"/><path d="M15 11h5l1.5 2v3H15z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
               </div>
-              <div class="cap-body">
-                <div class="cap-title">Logística VMI y entrega JIT</div>
-                <div class="cap-spec">Stock administrado · Kanban semanal · Forecast 12 meses · AR · UY · BR</div>
+              <div class="ccard-eyebrow">Etapa 04 · Logística</div>
+              <h3 class="ccard-title">Logística VMI y entrega JIT</h3>
+              <p class="ccard-desc">
+                Modelo VMI con stock administrado en planta del cliente. Entregas
+                Just-in-Time coordinadas vía Kanban semanal y forecast a 12 meses.
+                Cobertura logística en Argentina, Uruguay y Brasil.
+              </p>
+              <div class="ccard-tags">
+                <span>VMI</span>
+                <span>Kanban semanal</span>
+                <span>Forecast 12 m</span>
+                <span>AR · UY · BR</span>
               </div>
-              <div class="cap-arr">→</div>
             </div>
 
+          </div>
+
+          <!-- Triggers invisibles que generan el scroll -->
+          <div class="caps-triggers" aria-hidden="true">
+            <div class="caps-trigger" data-step="0"></div>
+            <div class="caps-trigger" data-step="1"></div>
+            <div class="caps-trigger" data-step="2"></div>
+            <div class="caps-trigger" data-step="3"></div>
           </div>
         </div>
 

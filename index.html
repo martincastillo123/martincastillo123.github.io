@@ -28,7 +28,7 @@
         <li><a href="#marcas">Clientes</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
-      <a href="mailto:comercial@cylgem.com.ar" class="cta">Cotizar proyecto <span class="arr">→</span></a>
+      <a href="admin.html" class="cta">Clientes Cylgem <span class="arr">→</span></a>
       <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
         <span></span>
         <span></span>
@@ -42,7 +42,7 @@
         <li><a href="#industrias">Industrias</a></li>
         <li><a href="#marcas">Clientes</a></li>
         <li><a href="#contacto">Contacto</a></li>
-        <li><a href="mailto:comercial@cylgem.com.ar" class="mobile-cta">Cotizar proyecto <span class="arr">→</span></a></li>
+        <li><a href="admin.html" class="mobile-cta">Clientes Cylgem <span class="arr">→</span></a></li>
       </ul>
     </div>
   </nav>
@@ -240,9 +240,9 @@
         </div>
         <div class="cap-img-item">
           <div class="cap-img-frame">
-            <img src="img/maquina.jpg" alt="Línea de producción" />
+            <img src="img/modulomati.png" alt="Accesorios electrónicos para vehículos" style="transform: rotate(90deg) scale(1.6);" />
             <div class="cap-img-overlay">
-              <span>Línea de producción</span>
+              <span>Accesorios electrónicos para vehículos</span>
             </div>
           </div>
         </div>
@@ -722,6 +722,94 @@
       <span class="sf-copy">© 2025 Cylgem S.A. — Todos los derechos reservados</span>
     </div>
   </footer>
+
+  <!-- CMS: conecta la web con Supabase y aplica el contenido guardado -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+  (async () => {
+    const _db = supabase.createClient(
+      'https://ttcilugbybfekocqpiur.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0Y2lsdWdieWJmZWtvY3FwaXVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExMzEzMDUsImV4cCI6MjA5NjcwNzMwNX0.E1fFy8Ri6YlCtrvNhJ2o_UpIXMuOY_B9F_STGYHDdqU'
+    );
+
+    const { data } = await _db.from('site_content').select('key, value');
+    if (!data || !data.length) return;
+
+    const c = {};
+    data.forEach(r => c[r.key] = r.value);
+
+    // Reemplaza textContent de un elemento
+    const txt = (sel, val) => {
+      if (!val) return;
+      const el = document.querySelector(sel);
+      if (el) el.textContent = val;
+    };
+
+    // Actualiza el texto del eyebrow conservando el punto pip
+    const eyebrow = (idx, val) => {
+      if (!val) return;
+      const slides = document.querySelectorAll('.hero-text-slide');
+      if (!slides[idx]) return;
+      const div = slides[idx].querySelector('.hero-eyebrow');
+      if (!div) return;
+      [...div.childNodes].filter(n => n.nodeType === 3).forEach(n => n.remove());
+      div.appendChild(document.createTextNode(val));
+    };
+
+    // Reemplaza imagen de fondo en un bg-slide (conserva el degradado)
+    const bgImg = (idx, val) => {
+      if (!val) return;
+      const slides = document.querySelectorAll('.bg-slide');
+      if (!slides[idx]) return;
+      slides[idx].style.backgroundImage = slides[idx].style.backgroundImage
+        .replace(/url\([^)]+\)/, `url('${val}')`);
+    };
+
+    // ── Hero ─────────────────────────────────────────────────────
+    eyebrow(0, c.hero_eyebrow_1);
+    txt('.hero-text-slide:nth-child(1) .sub', c.hero_sub_1);
+
+    eyebrow(1, c.hero_eyebrow_2);
+    txt('.hero-text-slide:nth-child(2) .sub', c.hero_sub_2);
+
+    eyebrow(2, c.hero_eyebrow_3);
+    txt('.hero-text-slide:nth-child(3) .sub', c.hero_sub_3);
+
+    bgImg(0, c.hero_imagen_1);
+    bgImg(1, c.hero_imagen_2);
+    bgImg(2, c.hero_imagen_3);
+
+    // ── Empresa ──────────────────────────────────────────────────
+    txt('.qs-title', c.empresa_titulo);
+    txt('.qs-intro', c.empresa_descripcion);
+
+    const stats = document.querySelectorAll('.qs-stat-item');
+    [
+      [0, 'empresa_stat_1_valor', 'empresa_stat_1_label'],
+      [1, 'empresa_stat_2_valor', 'empresa_stat_2_label'],
+      [2, 'empresa_stat_3_valor', 'empresa_stat_3_label'],
+      [3, 'empresa_stat_4_valor', 'empresa_stat_4_label'],
+    ].forEach(([i, vk, lk]) => {
+      if (!stats[i]) return;
+      const v = stats[i].querySelector('.qs-stat-v');
+      const l = stats[i].querySelector('.qs-stat-l');
+      if (v && c[vk]) v.textContent = c[vk];
+      if (l && c[lk]) l.textContent = c[lk];
+    });
+
+    if (c.empresa_imagen) {
+      const img = document.querySelector('.qs-plant-img');
+      if (img) img.style.backgroundImage = `url('${c.empresa_imagen}')`;
+    }
+
+    // ── Contacto ─────────────────────────────────────────────────
+    if (c.contacto_email) {
+      document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
+        a.href = `mailto:${c.contacto_email}`;
+      });
+    }
+  })();
+  </script>
 
   <script src="main.js"></script>
 </body>

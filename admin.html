@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cylgem — Panel de contenido</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1a2e5a;
+      --navy-light: #233875;
+      --ink: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --bg: #f9fafb;
+      --white: #ffffff;
+      --green: #16a34a;
+      --red: #dc2626;
+      --radius: 10px;
+      --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+    }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    /* ── LOGIN ──────────────────────────────────── */
+    .login-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(135deg, #0f1e3d 0%, #1a2e5a 100%);
+    }
+
+    .login-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+      text-align: center;
+    }
+
+    .login-logo {
+      height: 64px;
+      width: auto;
+      object-fit: contain;
+      margin-bottom: 24px;
+    }
+
+    .login-card h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .login-card > p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* ── FORMS ──────────────────────────────────── */
+    .field { margin-bottom: 16px; text-align: left; }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+      background: var(--white);
+      transition: border-color .2s;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--navy);
+    }
+
+    .field textarea { min-height: 80px; line-height: 1.55; }
+
+    .field-hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── BUTTONS ────────────────────────────────── */
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-family: 'Manrope', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+      margin-top: 8px;
+    }
+    .btn-primary:hover { background: var(--navy-light); }
+    .btn-primary:active { transform: scale(.98); }
+    .btn-primary:disabled { opacity: .6; cursor: default; transform: none; }
+
+    .btn-save {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: 999px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+    }
+    .btn-save:hover { background: var(--navy-light); }
+    .btn-save:active { transform: scale(.98); }
+    .btn-save:disabled { opacity: .6; cursor: default; }
+
+    .btn-upload {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--bg);
+      color: var(--ink);
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-upload:hover { border-color: var(--navy); background: var(--white); }
+
+    .btn-logout {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 10px 16px;
+      background: none;
+      border: 1.5px solid rgba(255,255,255,.2);
+      border-radius: var(--radius);
+      color: rgba(255,255,255,.7);
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .btn-logout:hover {
+      border-color: rgba(255,255,255,.5);
+      color: var(--white);
+      background: rgba(255,255,255,.08);
+    }
+
+    /* ── ERROR ──────────────────────────────────── */
+    .error-msg {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: var(--red);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    /* ── APP LAYOUT ─────────────────────────────── */
+    .app-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ────────────────────────────────── */
+    .sidebar {
+      width: 240px;
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      padding: 24px 16px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-logo {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      object-position: left;
+      margin-bottom: 6px;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,.15));
+    }
+
+    .sidebar-subtitle {
+      font-size: 11px;
+      color: rgba(255,255,255,.45);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+
+    .nav-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: rgba(255,255,255,.35);
+      padding: 0 12px;
+      margin-bottom: 6px;
+      margin-top: 20px;
+    }
+
+    .nav-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,.65);
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .nav-item:hover { background: rgba(255,255,255,.08); color: var(--white); }
+    .nav-item.active { background: rgba(255,255,255,.15); color: var(--white); font-weight: 600; }
+
+    .nav-item .icon { font-size: 17px; flex-shrink: 0; }
+
+    .sidebar-bottom { margin-top: auto; padding-top: 24px; }
+
+    .sidebar-user {
+      font-size: 12px;
+      color: rgba(255,255,255,.4);
+      margin-bottom: 12px;
+      padding: 0 4px;
+      word-break: break-all;
+    }
+
+    /* ── MAIN CONTENT ───────────────────────────── */
+    .main-content {
+      flex: 1;
+      margin-left: 240px;
+      padding: 32px;
+      min-height: 100vh;
+    }
+
+    .section-wrap { display: none; }
+    .section-wrap.active { display: block; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .section-header h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .section-header p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── CARDS ──────────────────────────────────── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 20px 0;
+    }
+
+    .two-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    /* ── IMAGE UPLOAD ───────────────────────────── */
+    .img-upload-area {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      transition: border-color .2s;
+    }
+
+    .img-upload-area:hover { border-color: var(--navy); }
+
+    .img-thumb {
+      width: 90px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: var(--border);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: var(--muted);
+      overflow: hidden;
+    }
+
+    .img-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .img-info { flex: 1; }
+
+    .img-info p {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .img-info span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .file-input { display: none; }
+
+    /* ── TOAST ──────────────────────────────────── */
+    .toast-wrap {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 9999;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 4px 20px rgba(0,0,0,.15);
+      animation: slideIn .3s ease;
+      max-width: 320px;
+    }
+
+    .toast.ok { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+    .toast.err { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+    @keyframes slideIn {
+      from { transform: translateX(120%); opacity: 0; }
+      to   { transform: translateX(0);   opacity: 1; }
+    }
+
+    /* ── LOADING OVERLAY ────────────────────────── */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      display: none;
+    }
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--navy);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── BADGE ──────────────────────────────────── */
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; height: auto; position: relative; }
+      .main-content { margin-left: 0; padding: 20px 16px; }
+      .app-layout { flex-direction: column; }
+      .two-cols { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══════════════════════════════════════ -->
+<div id="loginScreen" class="login-wrap">
+  <div class="login-card">
+    <img src="img/logo.png" alt="Cylgem" class="login-logo" />
+    <h1>Panel de administración</h1>
+    <p>Ingresá con tu usuario y contraseña para editar el sitio web.</p>
+
+    <div id="loginError" class="error-msg"></div>
+
+    <form id="loginForm">
+      <div class="field">
+        <label for="inputEmail">Usuario</label>
+        <input type="text" id="inputEmail" placeholder="admin" required autocomplete="username" />
+      </div>
+      <div class="field">
+        <label for="inputPassword">Contraseña</label>
+        <input type="password" id="inputPassword" placeholder="••••••••" required autocomplete="current-password" />
+      </div>
+      <button type="submit" class="btn-primary" id="loginBtn">Ingresar</button>
+    </form>
+  </div>
+</div>
+
+<!-- ══ PANEL PRINCIPAL ════════════════════════════ -->
+<div id="appScreen" style="display:none">
+  <div class="app-layout">
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <img src="img/logo.png" alt="Cylgem" class="sidebar-logo" />
+      <p class="sidebar-subtitle">Panel de contenido</p>
+
+      <div class="nav-label">Secciones</div>
+      <ul class="nav-list">
+        <li class="nav-item active" data-target="inicio">
+          <span class="icon">🏠</span> Inicio
+        </li>
+        <li class="nav-item" data-target="empresa">
+          <span class="icon">🏭</span> Empresa
+        </li>
+        <li class="nav-item" data-target="contacto">
+          <span class="icon">📞</span> Contacto
+        </li>
+      </ul>
+
+      <div class="sidebar-bottom">
+        <div class="sidebar-user" id="sidebarUser"></div>
+        <button class="btn-logout" id="logoutBtn">
+          <span>🚪</span> Cerrar sesión
+        </button>
+      </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+
+      <!-- ── INICIO ── -->
+      <div id="sec-inicio" class="section-wrap active">
+        <div class="section-header">
+          <div>
+            <h2>Sección de inicio</h2>
+            <p>Textos e imágenes que aparecen al entrar al sitio.</p>
+          </div>
+          <button class="btn-save" onclick="guardarSeccion('inicio')">💾 Guardar cambios</button>
+        </div>
+
+        <!-- Slide 1 -->
+        <div class="card">
+          <div class="card-title"><span>🖼️</span> Diapositiva 1 <span class="badge">Principal</span></div>
+          <div class="card-subtitle">La primera imagen y texto que ve el visitante.</div>
+
+          <div class="field">
+            <label>Texto pequeño arriba del título</label>
+            <input type="text" id="hero_eyebrow_1" />
+            <span class="field-hint">Ejemplo: "39 años en el mercado argentino"</span>
+          </div>
+          <div class="field">
+            <label>Título grande</label>
+            <textarea id="hero_titulo_1" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label>Descripción</label>
+            <textarea id="hero_sub_1" rows="3"></textarea>
+          </div>
+
+          <hr class="card-divider" />
+
+          <div class="field">
+            <label>Foto de fondo</label>
+            <div class="img-upload-area">
+              <div class="img-thumb" id="thumb_hero_imagen_1">🖼️</div>
+              <div class="img-info">
+                <p>Imagen del fondo</p>
+                <span>JPG o PNG · Máximo 5 MB · Tamaño recomendado: 1920×1080</span>
+              </div>
+              <label class="btn-upload">
+                📁 Elegir foto
+                <input type="file" class="file-input" accept="image/*" onchange="subirImagen(this,'hero_imagen_1','thumb_hero_imagen_1')" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="card">
+          <div class="card-title"><span>🖼️</span> Diapositiva 2</div>
+          <div class="card-subtitle">Segunda imagen que rota automáticamente.</div>
+
+          <div class="field">
+            <label>Texto pequeño arriba del título</label>
+            <input type="text" id="hero_eyebrow_2" />
+          </div>
+          <div class="field">
+            <label>Título grande</label>
+            <textarea id="hero_titulo_2" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label>Descripción</label>
+            <textarea id="hero_sub_2" rows="3"></textarea>
+          </div>
+
+          <hr class="card-divider" />
+
+          <div class="field">
+            <label>Foto de fondo</label>
+            <div class="img-upload-area">
+              <div class="img-thumb" id="thumb_hero_imagen_2">🖼️</div>
+              <div class="img-info">
+                <p>Imagen del fondo</p>
+                <span>JPG o PNG · Máximo 5 MB</span>
+              </div>
+              <label class="btn-upload">
+                📁 Elegir foto
+                <input type="file" class="file-input" accept="image/*" onchange="subirImagen(this,'hero_imagen_2','thumb_hero_imagen_2')" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="card">
+          <div class="card-title"><span>🖼️</span> Diapositiva 3</div>
+          <div class="card-subtitle">Tercera imagen de la rotación.</div>
+
+          <div class="field">
+            <label>Texto pequeño arriba del título</label>
+            <input type="text" id="hero_eyebrow_3" />
+          </div>
+          <div class="field">
+            <label>Título grande</label>
+            <textarea id="hero_titulo_3" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label>Descripción</label>
+            <textarea id="hero_sub_3" rows="3"></textarea>
+          </div>
+
+          <hr class="card-divider" />
+
+          <div class="field">
+            <label>Foto de fondo</label>
+            <div class="img-upload-area">
+              <div class="img-thumb" id="thumb_hero_imagen_3">🖼️</div>
+              <div class="img-info">
+                <p>Imagen del fondo</p>
+                <span>JPG o PNG · Máximo 5 MB</span>
+              </div>
+              <label class="btn-upload">
+                📁 Elegir foto
+                <input type="file" class="file-input" accept="image/*" onchange="subirImagen(this,'hero_imagen_3','thumb_hero_imagen_3')" />
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── EMPRESA ── -->
+      <div id="sec-empresa" class="section-wrap">
+        <div class="section-header">
+          <div>
+            <h2>Sección Empresa</h2>
+            <p>Información sobre Cylgem y los números destacados.</p>
+          </div>
+          <button class="btn-save" onclick="guardarSeccion('empresa')">💾 Guardar cambios</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><span>📝</span> Textos de la empresa</div>
+          <div class="card-subtitle">Aparecen en la sección "Nosotros".</div>
+
+          <div class="field">
+            <label>Título</label>
+            <input type="text" id="empresa_titulo" />
+          </div>
+          <div class="field">
+            <label>Descripción</label>
+            <textarea id="empresa_descripcion" rows="5"></textarea>
+          </div>
+
+          <hr class="card-divider" />
+
+          <div class="field">
+            <label>Foto de la planta / empresa</label>
+            <div class="img-upload-area">
+              <div class="img-thumb" id="thumb_empresa_imagen">🏭</div>
+              <div class="img-info">
+                <p>Foto de la planta</p>
+                <span>JPG o PNG · Máximo 5 MB</span>
+              </div>
+              <label class="btn-upload">
+                📁 Elegir foto
+                <input type="file" class="file-input" accept="image/*" onchange="subirImagen(this,'empresa_imagen','thumb_empresa_imagen')" />
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><span>📊</span> Números destacados</div>
+          <div class="card-subtitle">Los 4 datos que aparecen debajo del texto.</div>
+
+          <div class="two-cols">
+            <div class="field">
+              <label>Número 1</label>
+              <input type="text" id="empresa_stat_1_valor" placeholder="Ej: 39" />
+            </div>
+            <div class="field">
+              <label>Descripción del número 1</label>
+              <input type="text" id="empresa_stat_1_label" placeholder="Ej: Años en el mercado" />
+            </div>
+          </div>
+
+          <div class="two-cols">
+            <div class="field">
+              <label>Número 2</label>
+              <input type="text" id="empresa_stat_2_valor" placeholder="Ej: 25+" />
+            </div>
+            <div class="field">
+              <label>Descripción del número 2</label>
+              <input type="text" id="empresa_stat_2_label" placeholder="Ej: Clientes activos" />
+            </div>
+          </div>
+
+          <div class="two-cols">
+            <div class="field">
+              <label>Número 3</label>
+              <input type="text" id="empresa_stat_3_valor" />
+            </div>
+            <div class="field">
+              <label>Descripción del número 3</label>
+              <input type="text" id="empresa_stat_3_label" />
+            </div>
+          </div>
+
+          <div class="two-cols">
+            <div class="field">
+              <label>Número 4</label>
+              <input type="text" id="empresa_stat_4_valor" />
+            </div>
+            <div class="field">
+              <label>Descripción del número 4</label>
+              <input type="text" id="empresa_stat_4_label" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CONTACTO ── -->
+      <div id="sec-contacto" class="section-wrap">
+        <div class="section-header">
+          <div>
+            <h2>Sección Contacto</h2>
+            <p>Información de contacto que aparece al pie del sitio.</p>
+          </div>
+          <button class="btn-save" onclick="guardarSeccion('contacto')">💾 Guardar cambios</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><span>📞</span> Datos de contacto</div>
+          <div class="card-subtitle">Se muestran en la sección de contacto y el footer.</div>
+
+          <div class="field">
+            <label>Correo electrónico de contacto</label>
+            <input type="email" id="contacto_email" placeholder="comercial@cylgem.com.ar" />
+          </div>
+          <div class="field">
+            <label>Teléfono</label>
+            <input type="text" id="contacto_telefono" placeholder="+54 11 0000-0000" />
+          </div>
+          <div class="field">
+            <label>Dirección</label>
+            <input type="text" id="contacto_direccion" placeholder="Buenos Aires, Argentina" />
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- Toast notifications -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://ttcilugbybfekocqpiur.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0Y2lsdWdieWJmZWtvY3FwaXVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExMzEzMDUsImV4cCI6MjA5NjcwNzMwNX0.E1fFy8Ri6YlCtrvNhJ2o_UpIXMuOY_B9F_STGYHDdqU';
+
+  const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // ── TOAST ─────────────────────────────────────────
+  function toast(msg, tipo = 'ok') {
+    const wrap = document.getElementById('toastWrap');
+    const el = document.createElement('div');
+    el.className = `toast ${tipo}`;
+    el.textContent = tipo === 'ok' ? '✅ ' + msg : '❌ ' + msg;
+    wrap.appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+  }
+
+  function setLoading(on) {
+    document.getElementById('loadingOverlay').style.display = on ? 'flex' : 'none';
+  }
+
+  // ── AUTH ──────────────────────────────────────────
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('loginBtn');
+    const errEl = document.getElementById('loginError');
+    btn.disabled = true;
+    btn.textContent = 'Ingresando...';
+    errEl.style.display = 'none';
+
+    const usuario = document.getElementById('inputEmail').value.trim();
+    const email = usuario.includes('@') ? usuario : `${usuario}@cylgem.com.ar`;
+    const password = document.getElementById('inputPassword').value;
+
+    const { error } = await db.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      errEl.textContent = 'Usuario o contraseña incorrectos. Revisá los datos e intentá de nuevo.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Ingresar';
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await db.auth.signOut();
+  });
+
+  db.auth.onAuthStateChange((event, session) => {
+    if (session) {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('appScreen').style.display = 'block';
+      document.getElementById('sidebarUser').textContent = session.user.email;
+      cargarContenido();
+    } else {
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('appScreen').style.display = 'none';
+    }
+  });
+
+  // ── NAVEGACIÓN ────────────────────────────────────
+  document.querySelectorAll('.nav-item[data-target]').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      document.querySelectorAll('.section-wrap').forEach(s => s.classList.remove('active'));
+      item.classList.add('active');
+      document.getElementById('sec-' + item.dataset.target).classList.add('active');
+    });
+  });
+
+  // ── CARGAR CONTENIDO ──────────────────────────────
+  async function cargarContenido() {
+    setLoading(true);
+    const { data, error } = await db.from('site_content').select('key, value');
+    if (error) { toast('Error al cargar el contenido', 'err'); setLoading(false); return; }
+
+    const contenido = {};
+    data.forEach(row => contenido[row.key] = row.value);
+
+    const campos = [
+      'hero_eyebrow_1','hero_titulo_1','hero_sub_1',
+      'hero_eyebrow_2','hero_titulo_2','hero_sub_2',
+      'hero_eyebrow_3','hero_titulo_3','hero_sub_3',
+      'empresa_titulo','empresa_descripcion',
+      'empresa_stat_1_valor','empresa_stat_1_label',
+      'empresa_stat_2_valor','empresa_stat_2_label',
+      'empresa_stat_3_valor','empresa_stat_3_label',
+      'empresa_stat_4_valor','empresa_stat_4_label',
+      'contacto_email','contacto_telefono','contacto_direccion',
+    ];
+
+    campos.forEach(k => {
+      const el = document.getElementById(k);
+      if (el && contenido[k] !== undefined) el.value = contenido[k];
+    });
+
+    const imagenes = ['hero_imagen_1','hero_imagen_2','hero_imagen_3','empresa_imagen'];
+    imagenes.forEach(k => {
+      if (contenido[k]) mostrarThumb('thumb_' + k, contenido[k]);
+    });
+
+    setLoading(false);
+  }
+
+  // ── GUARDAR ───────────────────────────────────────
+  const camposPorSeccion = {
+    inicio: [
+      'hero_eyebrow_1','hero_titulo_1','hero_sub_1',
+      'hero_eyebrow_2','hero_titulo_2','hero_sub_2',
+      'hero_eyebrow_3','hero_titulo_3','hero_sub_3',
+    ],
+    empresa: [
+      'empresa_titulo','empresa_descripcion',
+      'empresa_stat_1_valor','empresa_stat_1_label',
+      'empresa_stat_2_valor','empresa_stat_2_label',
+      'empresa_stat_3_valor','empresa_stat_3_label',
+      'empresa_stat_4_valor','empresa_stat_4_label',
+    ],
+    contacto: ['contacto_email','contacto_telefono','contacto_direccion'],
+  };
+
+  async function guardarSeccion(seccion) {
+    const campos = camposPorSeccion[seccion];
+    const upserts = campos.map(k => ({
+      key: k,
+      value: document.getElementById(k)?.value ?? '',
+    }));
+
+    setLoading(true);
+    const { error } = await db.from('site_content').upsert(upserts, { onConflict: 'key' });
+    setLoading(false);
+
+    if (error) {
+      toast('Error al guardar. Intentá de nuevo.', 'err');
+    } else {
+      toast('¡Cambios guardados correctamente!');
+    }
+  }
+
+  // ── IMÁGENES ──────────────────────────────────────
+  async function subirImagen(input, clave, thumbId) {
+    const file = input.files[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast('La foto es muy grande. Máximo 5 MB.', 'err');
+      return;
+    }
+
+    setLoading(true);
+    const ext = file.name.split('.').pop();
+    const nombre = `${clave}-${Date.now()}.${ext}`;
+
+    const { error: uploadError } = await db.storage
+      .from('site-images')
+      .upload(nombre, file, { upsert: true });
+
+    if (uploadError) {
+      setLoading(false);
+      toast('Error al subir la foto. Intentá de nuevo.', 'err');
+      return;
+    }
+
+    const { data: urlData } = db.storage.from('site-images').getPublicUrl(nombre);
+    const url = urlData.publicUrl;
+
+    const { error: saveError } = await db.from('site_content').upsert(
+      [{ key: clave, value: url }],
+      { onConflict: 'key' }
+    );
+
+    setLoading(false);
+
+    if (saveError) {
+      toast('Foto subida pero no se pudo guardar. Intentá de nuevo.', 'err');
+    } else {
+      mostrarThumb(thumbId, url);
+      toast('¡Foto actualizada!');
+    }
+  }
+
+  function mostrarThumb(thumbId, url) {
+    const el = document.getElementById(thumbId);
+    if (!el) return;
+    el.innerHTML = `<img src="${url}" alt="preview" />`;
+  }
+</script>
+</body>
+</html>

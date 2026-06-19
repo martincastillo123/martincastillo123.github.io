@@ -63,6 +63,21 @@
     });
   })();
 
+  /* ============ Empresa — tabs (Historia/Misión/Visión/Valores) ============ */
+  (function initEsenciaTabs(){
+    const tabs   = document.querySelectorAll('.es-tab');
+    const panels = document.querySelectorAll('.es-panel');
+    if(!tabs.length) return;
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        tabs.forEach(t   => t.classList.toggle('is-active',  t.dataset.tab === target));
+        panels.forEach(p => p.classList.toggle('is-active', p.id === `panel-${target}`));
+      });
+    });
+  })();
+
   /* ============ Smooth anchor scroll ============ */
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
     a.addEventListener('click', e=>{

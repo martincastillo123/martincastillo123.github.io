@@ -121,7 +121,7 @@
   }
 
   .brand .brand-logo {
-    height: clamp(52px, 7vw, 90px);
+    height: clamp(44px, 5.5vw, 72px);
     max-width: 220px;
     width: auto;
     object-fit: contain;
@@ -341,14 +341,15 @@
     isolation: isolate;
   }
 
-  /* Pantallas cortas (laptops pequeñas, monitores de baja resolución):
-     Cambia a flex-start para que el texto arranque justo debajo del nav
-     en lugar de intentar centrarse y quedar cortado arriba/abajo */
+  /* Pantallas/ventanas de poca altura (laptops, monitores chicos, ventanas
+     no maximizadas): se mantiene el hero a pantalla completa y el contenido
+     CENTRADO verticalmente (queda equilibrado), pero con paddings y márgenes
+     reducidos para que todo entre sin cortarse. El padding-top despeja el nav fijo. */
   @media (max-height: 680px) {
     .hero-inner {
-      justify-content: flex-start;
-      padding-top: clamp(72px, 11vh, 96px);
-      padding-bottom: 36px;
+      justify-content: center;
+      padding-top: clamp(96px, 14vh, 120px);
+      padding-bottom: clamp(32px, 6vh, 56px);
     }
     .hero-eyebrow {
       margin-bottom: clamp(12px, 2vh, 20px);
@@ -358,19 +359,34 @@
     }
   }
 
-  /* Pantallas extremadamente cortas (landscape phone, plegables) */
+  /* Pantallas todavía más bajas: se compacta tipografía y espaciado para que
+     el bloque centrado (con subtítulo incluido) siga entrando completo. */
   @media (max-height: 520px) {
     .hero {
-      min-height: 480px;
+      min-height: 460px;
     }
     .hero-inner {
-      padding-top: 68px;
-      padding-bottom: 24px;
+      padding-top: clamp(84px, 16vh, 100px);
+      padding-bottom: clamp(24px, 5vh, 44px);
     }
     .hero h1 {
       font-size: clamp(22px, 3.2vw, 36px);
       line-height: 1.08;
     }
+    .hero .sub {
+      font-size: 13.5px;
+      margin-top: 10px;
+      line-height: 1.4;
+    }
+    .hero-actions {
+      margin-top: 16px;
+    }
+  }
+
+  /* Solo celulares en horizontal de verdad (poca altura Y poco ancho):
+     ahí sí se oculta el subtítulo para ganar espacio. Un monitor de
+     escritorio nunca cumple las dos condiciones, así que conserva el texto. */
+  @media (max-height: 430px) and (max-width: 900px) {
     .hero .sub {
       display: none;
     }
@@ -390,12 +406,12 @@
     background-size: cover;
     background-position: center 50%;
     opacity: 0;
-    animation: heroSlide 18s ease-in-out infinite;
+    animation: heroSlide 30s ease-in-out infinite;
   }
 
   .hero .bg-slide:nth-child(1) { animation-delay: 0s; }
-  .hero .bg-slide:nth-child(2) { animation-delay: -12s; }
-  .hero .bg-slide:nth-child(3) { animation-delay: -6s; }
+  .hero .bg-slide:nth-child(2) { animation-delay: -20s; }
+  .hero .bg-slide:nth-child(3) { animation-delay: -10s; }
 
   @keyframes heroSlide {
     0%, 22%  { opacity: 1; }
@@ -434,7 +450,7 @@
   .hero-text-slide {
     grid-area: 1 / 1;
     opacity: 0;
-    animation: heroSlide 18s ease-in-out infinite;
+    animation: heroSlide 30s ease-in-out infinite;
     pointer-events: none;
   }
 
@@ -443,11 +459,11 @@
   }
 
   .hero-text-slide:nth-child(2) {
-    animation-delay: -12s;
+    animation-delay: -20s;
   }
 
   .hero-text-slide:nth-child(3) {
-    animation-delay: -6s;
+    animation-delay: -10s;
   }
 
   .hero-eyebrow {
@@ -1999,7 +2015,6 @@
     grid-template-columns: 1fr 1.2fr;
     gap: clamp(60px, 6vw, 100px);
     align-items: center;
-    padding-bottom: clamp(48px, 6vh, 80px);
   }
 
 
@@ -2032,12 +2047,318 @@
     max-width: 22ch;
   }
 
+  /* Eyebrow — ancla la trayectoria y da jerarquía sobre el título */
+  .qs-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--mute);
+    margin-bottom: 14px;
+  }
+
   .qs-intro {
     margin-top: 0;
     font-size: clamp(14px, 1.1vw, 16px);
     line-height: 1.65;
     color: var(--ink-2);
     max-width: 48ch;
+  }
+
+  .qs-intro + .qs-intro {
+    margin-top: 16px;
+  }
+
+  .qs-intro strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  /* Sectores como lista con íconos — escaneable y técnico, en 2 columnas */
+  .qs-sectors {
+    list-style: none;
+    margin: clamp(20px, 2.8vh, 30px) 0 0;
+    padding: clamp(18px, 2.4vh, 24px) 0 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: clamp(12px, 1.6vh, 18px) clamp(16px, 2vw, 32px);
+    max-width: 48ch;
+  }
+
+  .qs-sector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .qs-sector-ico {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #f3f6fb;
+    border: 1px solid var(--line);
+    color: var(--navy);
+    transition: background .2s, color .2s, border-color .2s;
+  }
+
+  .qs-sector-ico svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .qs-sector:hover .qs-sector-ico {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #ffffff;
+  }
+
+  .qs-sector-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Módulo con pestañas: Historia / Misión / Visión / Valores ── */
+  .es-module {
+    margin-top: clamp(32px, 4.5vh, 56px);
+    padding-top: clamp(28px, 3.5vh, 44px);
+    border-top: 1px solid var(--line);
+  }
+
+  .es-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(14px, 2.5vw, 36px);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: clamp(24px, 3vh, 36px);
+  }
+
+  .es-tab {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 0 14px;
+    font-size: clamp(14px, 1.3vw, 16px);
+    font-weight: 600;
+    color: var(--mute);
+    letter-spacing: -0.01em;
+    position: relative;
+    transition: color .2s;
+  }
+
+  .es-tab::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: var(--navy);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .25s ease;
+  }
+
+  .es-tab:hover {
+    color: var(--ink);
+  }
+
+  .es-tab.is-active {
+    color: var(--navy);
+  }
+
+  .es-tab.is-active::after {
+    transform: scaleX(1);
+  }
+
+  .es-panel {
+    display: none;
+    animation: esFade .35s ease;
+  }
+
+  .es-panel.is-active {
+    display: block;
+  }
+
+  @keyframes esFade {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Misión / Visión */
+  .es-statement {
+    font-size: clamp(18px, 2vw, 26px);
+    line-height: 1.5;
+    font-weight: 500;
+    color: var(--ink);
+    max-width: 60ch;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+
+  .es-lead {
+    color: var(--navy);
+  }
+
+  /* Valores — lista de enunciados */
+  .es-values-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: clamp(12px, 1.8vh, 18px);
+    max-width: 60ch;
+  }
+
+  .es-values-list li {
+    position: relative;
+    padding-left: 30px;
+    font-size: clamp(16px, 1.6vw, 20px);
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .es-values-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: .62em;
+    width: 14px;
+    height: 2px;
+    background: var(--navy);
+  }
+
+  /* Línea de tiempo HORIZONTAL (pestaña Historia), con scroll lateral */
+  .hist-tl {
+    position: relative;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 0 14px;
+    scroll-snap-type: x proximity;
+    -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 48px), transparent 100%);
+    mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 48px), transparent 100%);
+  }
+
+  .hist-item {
+    position: relative;
+    flex: 0 0 auto;
+    width: clamp(190px, 22vw, 240px);
+    padding: 40px 26px 0 0;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Etiqueta de hito (Fundación / Hoy). Va absoluta para no desalinear los años */
+  .hist-kicker {
+    position: absolute;
+    top: 18px;
+    left: 0;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+
+  .hist-item.is-now .hist-kicker {
+    color: var(--rust);
+  }
+
+  /* Línea continua: cada ítem dibuja su tramo y se unen entre sí */
+  .hist-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 8px;
+    height: 2px;
+    background: var(--line);
+    z-index: 0;
+  }
+
+  .hist-item:first-child::before {
+    left: 7px;
+  }
+
+  .hist-item:last-child::before {
+    right: auto;
+    width: 7px;
+  }
+
+  .hist-dot {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid var(--navy);
+    box-shadow: 0 0 0 4px #ffffff;
+    z-index: 1;
+  }
+
+  /* Inicio (Fundación) y Hoy: punto relleno y más grande para marcar los extremos */
+  .hist-item.is-start .hist-dot,
+  .hist-item.is-now .hist-dot {
+    top: 0;
+    width: 18px;
+    height: 18px;
+  }
+
+  .hist-item.is-start .hist-dot {
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+
+  .hist-item.is-now .hist-dot {
+    background: var(--rust);
+    border-color: var(--rust);
+  }
+
+  .hist-year {
+    display: block;
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 800;
+    color: var(--navy);
+    letter-spacing: -.02em;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .hist-item.is-now .hist-year {
+    color: var(--rust);
+  }
+
+  .hist-desc {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin: 0;
+  }
+
+  .hist-tl::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .hist-tl::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, .18);
+    border-radius: 99px;
+  }
+
+  .hist-tl::-webkit-scrollbar-track {
+    background: transparent;
   }
 
   /* Stats */
@@ -2377,8 +2698,11 @@
 
   .carousel-track {
     display: flex;
-    gap: clamp(32px, 4vw, 64px);
-    animation: scroll-infinite 55s linear infinite;
+    /* La separación va como margin-right en cada slide (no flex `gap`) para que
+       translateX(-50%) caiga exacto y el loop sea sin costuras en TODOS los
+       navegadores (Brave/Chromium incluidos). */
+    width: max-content;
+    animation: scroll-infinite 50s linear infinite;
     padding: 32px 0;
     will-change: transform;
   }
@@ -2399,6 +2723,7 @@
     flex-shrink: 0;
     width: clamp(110px, 14vw, 180px);
     height: clamp(85px, 10vw, 110px);
+    margin-right: clamp(32px, 4vw, 64px);
     perspective: 700px;
     cursor: pointer;
   }
@@ -2487,7 +2812,11 @@
       transform: translateX(0);
     }
     100% {
-      transform: translateX(calc(-50% - clamp(32px, 4vw, 64px) / 2));
+      /* Como cada slide lleva su margin-right, el track es exactamente 2 sets
+         iguales: -50% deja el segundo set donde estaba el primero, sin saltos.
+         Un porcentaje puro (sin calc/clamp) se anima de forma fiable en todos
+         los navegadores. */
+      transform: translateX(-50%);
     }
   }
 
@@ -2591,11 +2920,11 @@
   /* ===== CAPACIDADES (CLEAN — especificidad con .capacidades para evitar colisión) ===== */
   .capacidades {
     background: #f7f5f1;
-    padding: clamp(48px, 6vw, 72px) 0;
+    padding: clamp(40px, 5vw, 60px) 0;
   }
 
   .capacidades .cap-header {
-    margin-bottom: clamp(24px, 3vh, 36px);
+    margin-bottom: clamp(16px, 2vh, 24px);
   }
 
   .cap-section-label {
@@ -2646,8 +2975,8 @@
   }
 
   .capacidades .cap-icon {
-    width: 38px;
-    height: 38px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2655,7 +2984,7 @@
     flex-shrink: 0;
     background: rgba(0,82,179,.07);
     border-radius: 8px;
-    padding: 8px;
+    padding: 7px;
   }
 
   .capacidades .cap-icon svg {
@@ -2664,7 +2993,7 @@
   }
 
   .capacidades .cap-card-title {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--ink);
     margin: 0;
@@ -2672,11 +3001,74 @@
   }
 
   .capacidades .cap-card-text {
-    font-size: 13.5px;
+    font-size: 12.5px;
     color: var(--mute);
-    line-height: 1.7;
+    line-height: 1.5;
     margin: 0;
     flex: 1;
+  }
+
+  /* ── Layout 2 columnas: etapas (izq) + galería de imágenes (der) ── */
+  .capacidades .cap-layout {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(18px, 2.4vw, 32px);
+  }
+
+  /* Arriba: 3 etapas en fila */
+  .cap-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(12px, 1.5vw, 20px);
+  }
+
+  .capacidades .cap-steps .cap-card {
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px 18px 20px;
+  }
+
+  .cap-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  /* Abajo: 3 imágenes iguales en fila, rectas, sin bordes ni etiquetas */
+  .cap-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(12px, 1.5vw, 20px);
+  }
+
+  .cap-gallery .cap-img-item {
+    transition: transform .3s ease;
+  }
+
+  .cap-gallery .cap-img-item:hover {
+    transform: translateY(-3px);
+    z-index: 2;
+  }
+
+  .cap-gallery .cap-img-frame {
+    aspect-ratio: 4/3;
+    height: auto;
+    border-top: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 26px -12px rgba(0, 0, 0, .2);
+  }
+
+  /* Mobile: etapas e imágenes en una sola columna */
+  @media (max-width: 768px) {
+    .cap-steps {
+      grid-template-columns: 1fr;
+    }
+    .cap-gallery {
+      grid-template-columns: 1fr;
+    }
+    .cap-gallery .cap-img-frame {
+      aspect-ratio: 16/10;
+    }
   }
 
   .cap-card-title {
@@ -4083,7 +4475,7 @@
       flex: none;
       grid-template-columns: 1fr;
       gap: 24px;
-      padding-bottom: 24px;
+      padding-bottom: 48px;
       align-items: start;
     }
 
@@ -4391,7 +4783,20 @@
       padding: clamp(56px, 8vw, 96px) 0;
     }
 
-    /* Hero */
+    /* Hero — en celulares el contenido se ancla arriba y la altura puede
+       crecer, así el texto debajo del título y los botones nunca quedan
+       recortados por el overflow:hidden de pantallas altas (iPhone, etc.) */
+    .hero {
+      height: auto;
+      min-height: 88vh;
+      min-height: 88svh;
+    }
+    .hero-inner {
+      justify-content: flex-start;
+      padding-top: clamp(96px, 16vh, 130px);
+      padding-bottom: clamp(40px, 7vh, 64px);
+    }
+
     .hero h1 {
       font-size: clamp(30px, 7.5vw, 46px);
       line-height: 1.1;
@@ -4522,14 +4927,14 @@
     }
 
     .carousel-track {
-      gap: clamp(24px, 3vw, 40px);
       padding: 24px 0;
-      animation: scroll-infinite 45s linear infinite;
+      animation: scroll-infinite 38s linear infinite;
     }
 
     .carousel-slide {
       width: clamp(120px, 26vw, 160px);
       height: clamp(90px, 18vw, 110px);
+      margin-right: clamp(24px, 3vw, 40px);
     }
 
     .carousel-card-front {
@@ -5008,102 +5413,163 @@
     margin: 0;
   }
 
-  .certs-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(14px, 2vw, 24px);
-    max-width: 960px;
-    margin: 0 auto;
+  .certs-intro {
+    max-width: 62ch;
+    margin: 14px auto 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--mute);
   }
 
-  .cert-item {
+  /* Panel: TÜV destacado a la izquierda, normas ISO apiladas a la derecha */
+  .certs-panel {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: clamp(16px, 2.5vw, 28px);
+    max-width: 960px;
+    margin: clamp(28px, 4vh, 44px) auto 0;
+    align-items: stretch;
+  }
+
+  .tuv-card,
+  .iso-item {
     background: #ffffff;
     border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: clamp(28px, 4vh, 40px) clamp(20px, 2.5vw, 32px) clamp(24px, 3.5vh, 36px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 0;
+    border-radius: 16px;
     transition: transform .25s, box-shadow .25s, border-color .25s;
   }
 
-  .cert-item:hover {
+  .tuv-card:hover,
+  .iso-item:hover {
     transform: translateY(-4px);
     box-shadow: 0 16px 40px -10px rgba(0, 0, 0, .1);
     border-color: #b8c8e8;
   }
 
-  /* Logo wrapper — área fija para que los 3 logos alineen aunque tengan distinto tamaño */
-  .cert-logo-wrap {
-    width: 120px;
-    height: 100px;
+  /* --- Certificado TÜV destacado --- */
+  .tuv-card {
+    padding: clamp(22px, 3vw, 34px);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .tuv-badge {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+  }
+
+  .tuv-badge img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+  }
+
+  .tuv-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: auto;
+  }
+
+  .tuv-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+
+  .tuv-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink);
+  }
+
+  .tuv-verify {
+    margin-top: 12px;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--navy);
+    color: #ffffff;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: transform .2s, box-shadow .2s, background .2s;
+  }
+
+  .tuv-verify:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px -8px rgba(10, 22, 40, .5);
+  }
+
+  .tuv-verify .arr {
+    transition: transform .2s;
+  }
+
+  .tuv-verify:hover .arr {
+    transform: translateX(3px);
+  }
+
+  /* --- Normas ISO --- */
+  .iso-list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(14px, 2vw, 20px);
+  }
+
+  .iso-item {
+    flex: 1;
+    padding: clamp(18px, 2.2vw, 26px);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .iso-item img {
+    width: 66px;
+    height: 66px;
+    object-fit: contain;
     flex-shrink: 0;
   }
 
-  .cert-logo {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    display: block;
-  }
-
-  .cert-name {
-    font-size: clamp(15px, 1.4vw, 18px);
+  .iso-name {
+    font-size: 16px;
     font-weight: 700;
     color: var(--navy);
     letter-spacing: -0.01em;
-    margin-bottom: 10px;
   }
 
-  .cert-desc {
+  .iso-desc {
     font-size: 13px;
-    line-height: 1.65;
+    line-height: 1.55;
     color: var(--mute);
-    max-width: 28ch;
-    margin: 0 auto;
+    margin: 4px 0 0;
   }
 
   @media (max-width: 768px) {
-    .certs-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-    .cert-item {
-      padding: 18px 12px 16px;
-    }
-    .cert-logo-wrap {
-      width: 72px;
-      height: 60px;
-      margin-bottom: 12px;
-    }
-    .cert-name {
-      font-size: 13px;
-      margin-bottom: 6px;
-    }
-    .cert-desc {
-      font-size: 11.5px;
-      line-height: 1.5;
+    .certs-panel {
+      grid-template-columns: 1fr;
     }
   }
 
   @media (max-width: 480px) {
-    .cert-desc {
-      display: none;
+    .iso-item {
+      padding: 14px;
+      gap: 14px;
     }
-    .cert-name {
-      font-size: 12px;
-      margin-bottom: 0;
+    .iso-item img {
+      width: 52px;
+      height: 52px;
     }
-    .cert-logo-wrap {
-      width: 60px;
-      height: 50px;
-      margin-bottom: 10px;
+    .tuv-verify {
+      width: 100%;
+      justify-content: center;
     }
   }
 
@@ -5112,7 +5578,7 @@
      =================================================================== */
 
   .productos {
-    background: #0a1628;
+    background: var(--navy);
     padding: clamp(56px, 7vw, 96px) 0;
   }
 
@@ -5125,7 +5591,7 @@
     font-weight: 600;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: rgba(255,255,255,.35);
+    color: rgba(255,255,255,.75);
     margin-bottom: 14px;
   }
 
@@ -5148,7 +5614,7 @@
   .prod-cta {
     font-size: 14px;
     font-weight: 600;
-    color: rgba(255,255,255,.5);
+    color: rgba(255,255,255,.85);
     white-space: nowrap;
     transition: color .2s;
     flex-shrink: 0;
@@ -5384,13 +5850,62 @@
     opacity: 1;
   }
 
+  /* Bloque de contacto */
+  .sf-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-family: 'JetBrains Mono', monospace;
+    text-align: right;
+  }
+
+  .sf-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: .04em;
+  }
+
+  .sf-address {
+    font-style: normal;
+    font-size: 11px;
+    line-height: 1.5;
+    letter-spacing: .04em;
+    color: rgba(255, 255, 255, .5);
+  }
+
+  .sf-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 11px;
+    letter-spacing: .04em;
+  }
+
+  .sf-lines a {
+    color: rgba(255, 255, 255, .62);
+    transition: color .2s;
+  }
+
+  .sf-lines a:hover {
+    color: #ffffff;
+  }
+
+  /* Barra inferior con el copyright */
+  .sf-bottom {
+    max-width: var(--container);
+    margin: clamp(16px, 2.5vh, 22px) auto 0;
+    padding: clamp(14px, 2vh, 18px) var(--pad-x) 0;
+    border-top: 1px solid rgba(255, 255, 255, .07);
+  }
+
   .sf-copy {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     color: rgba(255, 255, 255, .32);
     letter-spacing: .06em;
     text-align: center;
-    flex: 1;
+    display: block;
   }
 
   .sf-social {
@@ -5428,6 +5943,10 @@
       align-items: center;
       gap: 14px;
       text-align: center;
+    }
+    .sf-contact {
+      text-align: center;
+      align-items: center;
     }
     .sf-copy {
       font-size: 10px;

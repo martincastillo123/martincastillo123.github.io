@@ -548,12 +548,21 @@
             <span class="field-hint">Ejemplo: "40 años en el mercado argentino"</span>
           </div>
           <div class="field">
+            <label>🇬🇧 Texto pequeño (English)</label>
+            <input type="text" id="hero_eyebrow_1_en" />
+            <span class="field-hint">Si lo dejás vacío, se muestra el español.</span>
+          </div>
+          <div class="field">
             <label>Título grande</label>
             <textarea id="hero_titulo_1" rows="3"></textarea>
           </div>
           <div class="field">
             <label>Descripción</label>
             <textarea id="hero_sub_1" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label>🇬🇧 Descripción (English)</label>
+            <textarea id="hero_sub_1_en" rows="3"></textarea>
           </div>
 
           <hr class="card-divider" />
@@ -584,12 +593,20 @@
             <input type="text" id="hero_eyebrow_2" />
           </div>
           <div class="field">
+            <label>🇬🇧 Texto pequeño (English)</label>
+            <input type="text" id="hero_eyebrow_2_en" />
+          </div>
+          <div class="field">
             <label>Título grande</label>
             <textarea id="hero_titulo_2" rows="3"></textarea>
           </div>
           <div class="field">
             <label>Descripción</label>
             <textarea id="hero_sub_2" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label>🇬🇧 Descripción (English)</label>
+            <textarea id="hero_sub_2_en" rows="3"></textarea>
           </div>
 
           <hr class="card-divider" />
@@ -620,12 +637,20 @@
             <input type="text" id="hero_eyebrow_3" />
           </div>
           <div class="field">
+            <label>🇬🇧 Texto pequeño (English)</label>
+            <input type="text" id="hero_eyebrow_3_en" />
+          </div>
+          <div class="field">
             <label>Título grande</label>
             <textarea id="hero_titulo_3" rows="3"></textarea>
           </div>
           <div class="field">
             <label>Descripción</label>
             <textarea id="hero_sub_3" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label>🇬🇧 Descripción (English)</label>
+            <textarea id="hero_sub_3_en" rows="3"></textarea>
           </div>
 
           <hr class="card-divider" />
@@ -666,8 +691,16 @@
             <input type="text" id="empresa_titulo" />
           </div>
           <div class="field">
+            <label>🇬🇧 Título (English)</label>
+            <input type="text" id="empresa_titulo_en" />
+          </div>
+          <div class="field">
             <label>Descripción</label>
             <textarea id="empresa_descripcion" rows="5"></textarea>
+          </div>
+          <div class="field">
+            <label>🇬🇧 Descripción (English)</label>
+            <textarea id="empresa_descripcion_en" rows="5"></textarea>
           </div>
 
           <hr class="card-divider" />
@@ -848,14 +881,17 @@
     });
   });
 
+  // Guarda el inglés cargado para no pisarlo al guardar campos sin UI en inglés
+  const contenidoEn = {};
+
   // ── CARGAR CONTENIDO ──────────────────────────────
   async function cargarContenido() {
     setLoading(true);
-    const { data, error } = await db.from('site_content').select('key, value');
+    const { data, error } = await db.from('site_content').select('key, value, value_en');
     if (error) { toast('Error al cargar el contenido', 'err'); setLoading(false); return; }
 
     const contenido = {};
-    data.forEach(row => contenido[row.key] = row.value);
+    data.forEach(row => { contenido[row.key] = row.value; contenidoEn[row.key] = row.value_en; });
 
     const campos = [
       'hero_eyebrow_1','hero_titulo_1','hero_sub_1',
@@ -872,6 +908,9 @@
     campos.forEach(k => {
       const el = document.getElementById(k);
       if (el && contenido[k] !== undefined) el.value = contenido[k];
+      // Campo en inglés (si existe en el panel)
+      const elEn = document.getElementById(k + '_en');
+      if (elEn && contenidoEn[k] != null) elEn.value = contenidoEn[k];
     });
 
     const imagenes = ['hero_imagen_1','hero_imagen_2','hero_imagen_3','empresa_imagen'];
@@ -901,10 +940,17 @@
 
   async function guardarSeccion(seccion) {
     const campos = camposPorSeccion[seccion];
-    const upserts = campos.map(k => ({
-      key: k,
-      value: document.getElementById(k)?.value ?? '',
-    }));
+    const upserts = campos.map(k => {
+      const elEn = document.getElementById(k + '_en');
+      // value_en: del campo en inglés si existe; si no, se preserva el actual
+      // (así todas las filas del lote llevan la misma columna y no se borra nada).
+      const valueEn = elEn ? elEn.value : (contenidoEn[k] ?? null);
+      return {
+        key: k,
+        value: document.getElementById(k)?.value ?? '',
+        value_en: valueEn,
+      };
+    });
 
     setLoading(true);
     const { error } = await db.from('site_content').upsert(upserts, { onConflict: 'key' });

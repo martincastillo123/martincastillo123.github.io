@@ -329,6 +329,67 @@
     transform: translateX(2px)
   }
 
+  /* ===== TOGGLE DE IDIOMA (ES | EN) ===== */
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, .14);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .6);
+    flex-shrink: 0;
+  }
+
+  .lang-toggle .lang-opt {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: var(--mute);
+    padding: 4px 10px;
+    border-radius: 999px;
+    line-height: 1;
+    transition: background .2s, color .2s;
+  }
+
+  .lang-toggle .lang-opt.is-active {
+    background: var(--navy);
+    color: #ffffff;
+  }
+
+  .lang-toggle:hover {
+    border-color: rgba(0, 0, 0, .28);
+  }
+
+  /* Toggle dentro del menú mobile (pills más grandes, full width) */
+  .mobile-lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 6px;
+    border: 1px solid rgba(0, 0, 0, .12);
+    border-radius: 999px;
+    background: transparent;
+    margin-top: 4px;
+  }
+
+  .mobile-lang-toggle .lang-opt {
+    flex: 1;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--mute);
+    padding: 12px 10px;
+    border-radius: 999px;
+    transition: background .2s, color .2s;
+  }
+
+  .mobile-lang-toggle .lang-opt.is-active {
+    background: var(--navy);
+    color: #ffffff;
+  }
+
   /* ===== HERO ===== */
   .hero {
     position: relative;
@@ -3058,16 +3119,89 @@
     box-shadow: 0 10px 26px -12px rgba(0, 0, 0, .2);
   }
 
-  /* Mobile: etapas e imágenes en una sola columna */
+  /* Mobile: etapas como acordeón + galería en bento (2 arriba, 1 apaisada) */
   @media (max-width: 768px) {
     .cap-steps {
       grid-template-columns: 1fr;
+      gap: 10px;
     }
+
+    /* ── Acordeón: header (ícono + título + chevron) y texto colapsable ── */
+    .capacidades .cap-steps .cap-card {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      column-gap: 12px;
+      row-gap: 0;
+      padding: 15px 16px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .capacidades .cap-steps .cap-card:hover {
+      transform: none;
+      box-shadow: none;
+    }
+    .capacidades .cap-steps .cap-card .cap-icon {
+      grid-row: 1;
+      grid-column: 1;
+    }
+    /* el body se "disuelve" para que título y texto sean hijos del grid */
+    .capacidades .cap-steps .cap-card-body {
+      display: contents;
+    }
+    .capacidades .cap-steps .cap-card-title {
+      grid-row: 1;
+      grid-column: 2;
+      font-size: 15px;
+    }
+    /* Chevron indicador */
+    .capacidades .cap-steps .cap-card::after {
+      content: '';
+      grid-row: 1;
+      grid-column: 3;
+      width: 9px;
+      height: 9px;
+      border-right: 2px solid var(--navy);
+      border-bottom: 2px solid var(--navy);
+      transform: rotate(45deg);
+      transition: transform .25s ease;
+      margin-right: 2px;
+    }
+    .capacidades .cap-steps .cap-card.is-open::after {
+      transform: rotate(225deg);
+    }
+    .capacidades .cap-steps .cap-card-text {
+      grid-row: 2;
+      grid-column: 1 / -1;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin-top: 0;
+      font-size: 13px;
+      transition: max-height .32s ease, opacity .25s ease, margin-top .25s ease;
+    }
+    .capacidades .cap-steps .cap-card.is-open .cap-card-text {
+      max-height: 420px;
+      opacity: 1;
+      margin-top: 12px;
+    }
+
+    /* ── Galería bento: 2 cuadradas arriba + 1 apaisada abajo, más chicas ── */
     .cap-gallery {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
-    .cap-gallery .cap-img-frame {
-      aspect-ratio: 16/10;
+    .cap-gallery .cap-img-item:nth-child(3) {
+      grid-column: 1 / -1;
+    }
+    .cap-gallery .cap-img-item:nth-child(1) .cap-img-frame,
+    .cap-gallery .cap-img-item:nth-child(2) .cap-img-frame {
+      aspect-ratio: 1 / 1;
+      border-radius: 10px;
+    }
+    .cap-gallery .cap-img-item:nth-child(3) .cap-img-frame {
+      aspect-ratio: 5 / 2;
+      border-radius: 10px;
     }
   }
 
@@ -4435,20 +4569,32 @@
   /* ===== RESPONSIVE ===== */
   @media (max-width: 1024px) {
     .nav .nav-links,
-    .nav .cta {
+    .nav .cta,
+    .nav .lang-toggle {
       display: none;
     }
     .nav-toggle {
       display: flex;
     }
+
+    /* Barra más alta en mobile para darle presencia al logo de marca */
+    .nav-inner {
+      padding-top: 9px;
+      padding-bottom: 9px;
+    }
+    .nav.scrolled .nav-inner {
+      padding-top: 7px;
+      padding-bottom: 7px;
+    }
+
     .brand .brand-logo {
-      height: clamp(44px, 10vw, 64px);
-      max-width: 55vw;
+      height: clamp(54px, 14vw, 66px);
+      max-width: 62vw;
       margin-left: 0;
     }
 
     .nav.scrolled .brand-logo {
-      height: clamp(38px, 8.5vw, 56px);
+      height: clamp(48px, 12vw, 58px);
     }
 
     .hero {
@@ -4468,7 +4614,7 @@
 
     .quienes > .container {
       padding-top: 80px;
-      padding-bottom: 0;
+      padding-bottom: clamp(40px, 7vw, 60px);
     }
 
     .qs-grid {
@@ -4477,6 +4623,19 @@
       gap: 24px;
       padding-bottom: 48px;
       align-items: start;
+    }
+
+    /* Evita el desborde horizontal: los hijos del grid deben poder encogerse
+       (min-width:auto por defecto los hacía más anchos que el viewport y
+       cortaba el texto a la derecha). */
+    .qs-grid > * {
+      min-width: 0;
+    }
+
+    /* Sectores en 2 columnas que sí entran (antes minmax(180px) reventaba) */
+    .qs-sectors {
+      grid-template-columns: 1fr 1fr;
+      max-width: 100%;
     }
 
     .qs-plant-wrap {
@@ -4780,7 +4939,14 @@
      =================================================================== */
   @media (max-width: 768px) {
     section {
-      padding: clamp(56px, 8vw, 96px) 0;
+      padding: clamp(38px, 7vw, 64px) 0;
+    }
+    /* section.X gana en especificidad a las reglas base que aparecen
+       más abajo en el archivo, para reducir el padding también acá */
+    section.productos,
+    section.contacto,
+    section.certificaciones {
+      padding: clamp(40px, 7vw, 64px) 0;
     }
 
     /* Hero — en celulares el contenido se ancla arriba y la altura puede
@@ -5822,8 +5988,8 @@
      FOOTER
      =================================================================== */
   .site-footer {
-    background: #050a12;
-    border-top: 1px solid rgba(255, 255, 255, .07);
+    background: #0a1a38;
+    border-top: 1px solid rgba(255, 255, 255, .1);
     padding: clamp(20px, 3vh, 30px) 0;
   }
 
@@ -5870,8 +6036,8 @@
     font-style: normal;
     font-size: 11px;
     line-height: 1.5;
+    color: rgba(255, 255, 255, .6);
     letter-spacing: .04em;
-    color: rgba(255, 255, 255, .5);
   }
 
   .sf-lines {
@@ -5883,7 +6049,7 @@
   }
 
   .sf-lines a {
-    color: rgba(255, 255, 255, .62);
+    color: rgba(255, 255, 255, .65);
     transition: color .2s;
   }
 
@@ -5896,13 +6062,13 @@
     max-width: var(--container);
     margin: clamp(16px, 2.5vh, 22px) auto 0;
     padding: clamp(14px, 2vh, 18px) var(--pad-x) 0;
-    border-top: 1px solid rgba(255, 255, 255, .07);
+    border-top: 1px solid rgba(255, 255, 255, .1);
   }
 
   .sf-copy {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    color: rgba(255, 255, 255, .32);
+    color: rgba(255, 255, 255, .4);
     letter-spacing: .06em;
     text-align: center;
     display: block;
@@ -5918,18 +6084,18 @@
     width: 36px;
     height: 36px;
     border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, .12);
+    border: 1px solid rgba(255, 255, 255, .15);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(255, 255, 255, .45);
+    color: rgba(255, 255, 255, .5);
     transition: color .2s, border-color .2s, background .2s;
   }
 
   .sf-soc-link:hover {
-    color: var(--paper);
-    border-color: rgba(255, 255, 255, .35);
-    background: rgba(255, 255, 255, .07);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, .4);
+    background: rgba(255, 255, 255, .08);
   }
 
   .sf-soc-link svg {

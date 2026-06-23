@@ -48,6 +48,37 @@
     });
   }
 
+  /* ============ Capacidades — acordeón (solo mobile) ============ */
+  (function initCapAccordion(){
+    const cards = document.querySelectorAll('.cap-steps .cap-card');
+    if(!cards.length) return;
+    const mq = window.matchMedia('(max-width: 768px)');
+    cards.forEach(card => {
+      const title = card.querySelector('.cap-card-title');
+      if(title){
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-expanded', 'false');
+      }
+      const toggle = () => {
+        if(!mq.matches) return;          // en desktop el texto está siempre visible
+        const open = card.classList.toggle('is-open');
+        card.setAttribute('aria-expanded', open ? 'true' : 'false');
+      };
+      card.addEventListener('click', toggle);
+      card.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+      });
+    });
+    // Al pasar a desktop, limpia el estado colapsado
+    mq.addEventListener('change', e => {
+      if(!e.matches) cards.forEach(c => {
+        c.classList.remove('is-open');
+        c.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+
   /* ============ Contacto — tabs ============ */
   (function initContactTabs(){
     const tabs  = document.querySelectorAll('.ctab');

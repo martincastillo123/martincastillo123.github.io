@@ -3297,6 +3297,10 @@
     transform: scale(1.06);
   }
 
+  .cap-gallery .cap-img-item:nth-child(3) .cap-img-frame img {
+    object-position: center 60%;
+  }
+
   .cap-img-overlay {
     position: absolute;
     bottom: 12px;

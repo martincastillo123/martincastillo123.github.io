@@ -153,12 +153,12 @@ window.I18N_DICT = {
   /* ── CONTACTO ──────────────────────────────────────── */
   'con.label': { es: 'Contacto', en: 'Contact' },
   'con.title': { es: 'Contactanos.', en: 'Get in touch.' },
-  'con.sub':   { es: 'Elegí el área con la que querés comunicarte y completá el formulario. Te respondemos en menos de 24 h.', en: 'Choose the area you want to reach and fill out the form. We reply within 24 hours.' },
+  'con.sub':   { es: 'Elegí el área con la que querés comunicarte y completá el formulario.', en: 'Choose the area you want to reach and fill out the form.' },
   'con.tab.b2b':     { es: 'Negocios B2B', en: 'B2B Business' },
   'con.tab.soporte': { es: 'Soporte técnico', en: 'Technical support' },
   'con.tab.rrhh':    { es: 'Recursos Humanos', en: 'Human Resources' },
 
-  'con.b2b.desc': { es: 'Fabricación a medida, contratos OEM/OES, volumen y logística VMI. Nuestro equipo comercial te contacta en 24 h hábiles.', en: 'Custom manufacturing, OEM/OES contracts, volume and VMI logistics. Our sales team will contact you within 24 business hours.' },
+  'con.b2b.desc': { es: 'Fabricación a medida, contratos OEM/OES, volumen y logística VMI. Nuestro equipo te contactará a la brevedad.', en: 'Custom manufacturing, OEM/OES contracts, volume and VMI logistics. Our team will get back to you shortly.' },
   'con.lbl.ventas': { es: 'Ventas', en: 'Sales' },
   'con.lbl.tel':    { es: 'Tel', en: 'Phone' },
 
@@ -176,12 +176,12 @@ window.I18N_DICT = {
   'con.f.telcont':  { es: 'Teléfono de contacto', en: 'Contact phone' },
   'con.f.producto': { es: 'Producto / modelo', en: 'Product / model' },
   'con.f.area':     { es: 'Área de interés', en: 'Area of interest' },
-  'con.f.necesitas':{ es: '¿Qué necesitás fabricar?', en: 'What do you need to manufacture?' },
+  'con.f.necesitas':{ es: 'Contanos tu idea', en: 'Tell us your idea' },
   'con.f.problema': { es: 'Descripción del problema', en: 'Problem description' },
   'con.f.sobrevos': { es: 'Contanos sobre vos', en: 'Tell us about yourself' },
   'con.f.cv':       { es: 'Adjuntar CV (PDF · DOC)', en: 'Attach résumé (PDF · DOC)' },
 
-  'con.ph.msg':     { es: 'Describí el producto, volumen estimado y plazo…', en: 'Describe the product, estimated volume and timeline…' },
+  'con.ph.msg':     { es: 'Contanos tu idea…', en: 'Tell us your idea…' },
   'con.ph.problema':{ es: 'Describí el inconveniente con el mayor detalle posible…', en: 'Describe the issue in as much detail as possible…' },
   'con.ph.sobrevos':{ es: 'Experiencia, motivaciones, disponibilidad…', en: 'Experience, motivation, availability…' },
 

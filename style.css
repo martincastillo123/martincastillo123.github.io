@@ -541,7 +541,11 @@
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(0, 0, 0, 0.95);
   }
 
-  .hero-eyebrow .pip {
+  /* El punto ya no es un <span> aparte — así data-i18n puede reemplazar
+     el innerHTML completo del eyebrow sin cirugía de nodos de texto. */
+  .hero-eyebrow::before {
+    content: '';
+    flex-shrink: 0;
     width: 8px;
     height: 8px;
     background: #ffffff;
@@ -2779,92 +2783,41 @@
     }
   }
 
-  /* ── Flip card ── */
+  /* ── Muro de logos: mismo PESO ÓPTICO, gap uniforme, realce en hover ──
+     Los logos tienen relaciones de aspecto y densidades muy distintas
+     (emblemas cuadrados AR≈1, lockups AR≈2, marcas-palabra AR 4–7). Igualar
+     solo la altura NO iguala el tamaño visual: una palabra ancha "pesa" mucho
+     más que un emblema a la misma altura. Por eso cada marca lleva su propia
+     escala óptica (--logo-scale) sobre una altura base fluida, y el gap de
+     borde entre slides es constante. */
   .carousel-slide {
     flex-shrink: 0;
-    width: clamp(110px, 14vw, 180px);
-    height: clamp(85px, 10vw, 110px);
-    margin-right: clamp(32px, 4vw, 64px);
-    perspective: 700px;
-    cursor: pointer;
-  }
-
-  .carousel-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: transform .5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .carousel-slide:hover .carousel-card-inner {
-    transform: rotateY(180deg);
-  }
-
-  .carousel-card-front,
-  .carousel-card-back {
-    position: absolute;
-    inset: 0;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .carousel-card-front {
-    background: rgba(255,255,255,.8);
-    border: 1.5px solid var(--line);
-    backdrop-filter: blur(8px);
-    padding: clamp(14px, 2vw, 20px);
-  }
-
-  .carousel-card-back {
-    background: var(--navy);
-    transform: rotateY(180deg);
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 12px 14px;
-    gap: 6px;
-  }
-
-  .cb-brand {
-    font-size: 12px;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: .02em;
-    line-height: 1.2;
-  }
-
-  .cb-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
-
-  .cb-list li {
-    font-size: 10px;
-    color: rgba(255,255,255,.65);
-    line-height: 1.4;
+    margin-right: clamp(56px, 6.5vw, 96px);
   }
 
   .carousel-logo {
-    height: 100%;
-    width: 100%;
+    --logo-base: clamp(26px, 2.8vw, 34px);
+    height: calc(var(--logo-scale, 1) * var(--logo-base));
+    width: auto;
+    max-width: 210px;
     object-fit: contain;
-    filter: grayscale(1) brightness(0.92);
-    opacity: .75;
-    transition: filter .4s cubic-bezier(0.34, 1.56, 0.64, 1),
-                opacity .4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: grayscale(1);
+    opacity: .55;
+    transition: opacity .35s ease, filter .35s ease;
   }
 
+  /* La escala óptica por marca (--logo-scale) y el filtro de inversión de
+     color (logos blancos como Newsan) ahora vienen de la tabla client_logos
+     y se aplican como estilo inline por logo desde carousel.js — no como
+     clases CSS fijas, para que un logo nuevo agregado desde el admin
+     también pueda tener su propio ajuste sin tocar este archivo. */
+
+  /* Realce del logo bajo el cursor (el track ya se pausa en hover) */
   .carousel-slide:hover .carousel-logo {
-    filter: grayscale(0) brightness(1);
+    filter: grayscale(0);
     opacity: 1;
   }
 
@@ -4386,6 +4339,15 @@
   .cform-btn .arr { transition: transform .2s; }
   .cform-btn:hover .arr { transform: translateX(4px); }
 
+  .cform-status {
+    font-size: 13.5px;
+    font-weight: 600;
+    min-height: 0;
+  }
+  .cform-status:empty { display: none; }
+  .cform-status.is-ok { color: #16a34a; }
+  .cform-status.is-err { color: var(--rust); }
+
   /* ── Responsive ── */
   @media (max-width: 768px) {
     .cform.is-active { grid-template-columns: 1fr; }
@@ -4621,17 +4583,17 @@
       padding-bottom: clamp(40px, 7vw, 60px);
     }
 
+    /* Se mantiene en 2 columnas (imagen a la derecha) hasta ≤768px, para que
+       en pantalla media/laptop no quede un hueco vacío al costado del texto. */
     .qs-grid {
       flex: none;
-      grid-template-columns: 1fr;
-      gap: 24px;
+      grid-template-columns: 1fr 1.05fr;
+      gap: clamp(28px, 4vw, 48px);
       padding-bottom: 48px;
-      align-items: start;
+      align-items: center;
     }
 
-    /* Evita el desborde horizontal: los hijos del grid deben poder encogerse
-       (min-width:auto por defecto los hacía más anchos que el viewport y
-       cortaba el texto a la derecha). */
+    /* Evita el desborde horizontal: los hijos del grid deben poder encogerse. */
     .qs-grid > * {
       min-width: 0;
     }
@@ -4640,10 +4602,6 @@
     .qs-sectors {
       grid-template-columns: 1fr 1fr;
       max-width: 100%;
-    }
-
-    .qs-plant-wrap {
-      height: 280px;
     }
 
     .qs-htl {
@@ -5007,8 +4965,19 @@
       border-bottom: none;
       padding-bottom: 0;
     }
+    /* ≤768: colapsa a 1 columna, imagen debajo con altura fija y recortada
+       (evita que el aspect-ratio 3/2 la desborde y pise la línea de tiempo). */
+    .qs-grid {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
     .qs-plant-wrap {
-      height: clamp(220px, 50vw, 320px);
+      height: clamp(300px, 62vw, 400px);
+      overflow: hidden;
+    }
+    .qs-plant-img {
+      height: 100%;
+      aspect-ratio: auto;
     }
 
     /* Timeline horizontal 5 → 2 cols */
@@ -5102,39 +5071,11 @@
     }
 
     .carousel-slide {
-      width: clamp(120px, 26vw, 160px);
-      height: clamp(90px, 18vw, 110px);
-      margin-right: clamp(24px, 3vw, 40px);
+      margin-right: clamp(28px, 7vw, 44px);
     }
-
-    .carousel-card-front {
-      padding: clamp(12px, 1.5vw, 16px);
-    }
-
-    .carousel-card-back {
-      padding: 8px 10px;
-      gap: 4px;
-    }
-
-    .cb-brand {
-      font-size: 11px;
-    }
-
-    .cb-list li {
-      font-size: 9px;
-      line-height: 1.35;
-    }
-
     .carousel-logo {
-      filter: grayscale(1) brightness(0.88);
-    }
-  }
-
-  /* Flip por tap en dispositivos táctiles (sin hover) */
-  @media (hover: none) {
-    .carousel-slide:active .carousel-card-inner,
-    .carousel-slide:focus-within .carousel-card-inner {
-      transform: rotateY(180deg);
+      --logo-base: clamp(20px, 5.2vw, 28px);
+      max-width: 190px;
     }
   }
 
@@ -5722,6 +5663,27 @@
     margin: 4px 0 0;
   }
 
+  /* --- Acceso al PDF de cada norma (alineado a derecha) --- */
+  .iso-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .iso-link {
+    margin-top: 10px;
+    padding: 6px 0;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    color: var(--navy);
+    transition: color .2s;
+  }
+
+  .iso-link:hover {
+    color: #003d8a;
+  }
+
   @media (max-width: 768px) {
     .certs-panel {
       grid-template-columns: 1fr;
@@ -5888,10 +5850,274 @@
     transform: translateX(3px);
   }
 
+  /* ── Productos: marcas propias (Cylgem · I-motion) ── */
+  .prod-intro {
+    margin-top: 18px;
+    font-size: clamp(14px, 1.15vw, 16px);
+    line-height: 1.65;
+    color: rgba(255, 255, 255, .8);
+    max-width: 62ch;
+  }
+
+  .prod-brands {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    gap: clamp(16px, 1.6vw, 22px);
+  }
+
+  /* Díptico: dos mundos de marca sobre la banda navy */
+  .brand-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 18px;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform .45s cubic-bezier(.2, .7, .2, 1),
+                box-shadow .45s cubic-bezier(.2, .7, .2, 1),
+                border-color .45s ease;
+  }
+
+  .brand-panel:hover {
+    transform: translateY(-6px);
+  }
+
+  /* Escenario del emblema (imagen) */
+  .brand-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: clamp(250px, 27vw, 320px);
+    padding: clamp(30px, 3.4vw, 48px) clamp(24px, 3vw, 44px) clamp(10px, 1.2vw, 18px);
+  }
+
+  .brand-emblem {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: clamp(170px, 22vw, 244px);
+    object-fit: contain;
+    transition: transform .55s cubic-bezier(.2, .7, .2, 1);
+  }
+
+  .brand-panel:hover .brand-emblem {
+    transform: scale(1.05);
+  }
+
+  /* Cuerpo de texto */
+  .brand-body {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding: clamp(20px, 2.4vw, 30px) clamp(26px, 3vw, 44px) clamp(28px, 3vw, 40px);
+  }
+
+  .brand-tag {
+    font-family: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  .brand-name {
+    margin: 2px 0 4px;
+    font-size: clamp(30px, 3.6vw, 44px);
+    font-weight: 700;
+    letter-spacing: -.025em;
+    line-height: 1;
+  }
+
+  .brand-desc {
+    margin: 0;
+    max-width: 44ch;
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+
+  /* ————— Cylgem · Fiera: mundo oscuro ————— */
+  .brand-panel--fiera {
+    background:
+      radial-gradient(86% 60% at 50% 0%, rgba(230, 57, 70, .30), transparent 62%),
+      linear-gradient(180deg, #17090c 0%, #0c0a10 58%, #08070b 100%);
+    border: 1px solid rgba(255, 255, 255, .08);
+  }
+
+  .brand-panel--fiera:hover {
+    border-color: rgba(230, 57, 70, .38);
+    box-shadow: 0 32px 72px -30px rgba(230, 57, 70, .55),
+                0 18px 40px -26px rgba(0, 0, 0, .75);
+  }
+
+  .brand-panel--fiera .brand-emblem {
+    filter: drop-shadow(0 22px 34px rgba(0, 0, 0, .55));
+  }
+
+  /* Ember bajo la fiera */
+  .brand-panel--fiera .brand-stage::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 4px;
+    z-index: 0;
+    width: 54%;
+    height: 46px;
+    transform: translateX(-50%);
+    background: radial-gradient(60% 100% at 50% 0%, rgba(230, 57, 70, .42), transparent 72%);
+    filter: blur(7px);
+    pointer-events: none;
+  }
+
+  .brand-panel--fiera .brand-tag  { color: #ff9090; }
+  .brand-panel--fiera .brand-name { color: #ffffff; }
+  .brand-panel--fiera .brand-desc { color: rgba(255, 255, 255, .72); }
+
+  /* ————— I-motion: mundo claro / conectado ————— */
+  .brand-panel--imotion {
+    background: linear-gradient(180deg, #ffffff 0%, #eef2f9 100%);
+    border: 1px solid rgba(10, 26, 64, .10);
+  }
+
+  .brand-panel--imotion .brand-emblem {
+    max-height: clamp(190px, 24vw, 258px);
+  }
+
+  .brand-panel--imotion .brand-tag  { color: #0052B3; }
+  .brand-panel--imotion .brand-name { color: #0a0a0a; }
+  .brand-panel--imotion .brand-desc { color: #3a4356; }
+
+  /* Panel I-motion: recuadro completo clickable */
+  a.brand-panel--imotion {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .brand-panel--imotion:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 82, 179, .55),
+                0 32px 66px -32px rgba(0, 82, 179, .42);
+  }
+
+  /* Pista de enlace en reposo — esquina del escenario */
+  .brand-visit-hint {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: #0052B3;
+    color: #ffffff;
+    box-shadow: 0 8px 20px -10px rgba(0, 82, 179, .7);
+    transition: opacity .3s ease, transform .3s ease;
+  }
+
+  .brand-visit-hint svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  /* Overlay de "Visitar" — aparece sobre la imagen en hover/foco */
+  .brand-visit {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    pointer-events: none;
+    background: radial-gradient(120% 90% at 50% 50%, rgba(238, 242, 249, .55), rgba(238, 242, 249, .15));
+    transition: opacity .35s ease;
+  }
+
+  .brand-visit-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 22px;
+    border-radius: 999px;
+    background: #0052B3;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    white-space: nowrap;
+    box-shadow: 0 18px 40px -14px rgba(0, 82, 179, .8);
+    transform: translateY(10px) scale(.96);
+    transition: transform .45s cubic-bezier(.2, .7, .2, 1);
+  }
+
+  .brand-visit-ico {
+    font-size: 16px;
+    line-height: 1;
+    transition: transform .35s cubic-bezier(.2, .7, .2, 1);
+  }
+
+  .brand-panel--imotion:hover .brand-visit,
+  .brand-panel--imotion:focus-visible .brand-visit {
+    opacity: 1;
+  }
+
+  .brand-panel--imotion:hover .brand-visit-pill,
+  .brand-panel--imotion:focus-visible .brand-visit-pill {
+    transform: translateY(0) scale(1);
+  }
+
+  .brand-panel--imotion:hover .brand-visit-ico,
+  .brand-panel--imotion:focus-visible .brand-visit-ico {
+    transform: translateX(3px);
+  }
+
+  .brand-panel--imotion:hover .brand-visit-hint,
+  .brand-panel--imotion:focus-visible .brand-visit-hint {
+    opacity: 0;
+    transform: scale(.8);
+  }
+
+  .brand-panel--imotion:hover .brand-emblem,
+  .brand-panel--imotion:focus-visible .brand-emblem {
+    filter: brightness(.94);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .brand-panel,
+    .brand-emblem,
+    .brand-visit,
+    .brand-visit-pill,
+    .brand-visit-ico,
+    .brand-visit-hint {
+      transition: none;
+    }
+    .brand-panel:hover,
+    .brand-panel:hover .brand-emblem {
+      transform: none;
+    }
+    .brand-visit-pill {
+      transform: none;
+    }
+  }
+
   /* Responsive de productos — va después de la definición base para ganar por orden */
   @media (max-width: 1024px) {
     .prod-grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .prod-brands {
+      grid-template-columns: 1fr;
     }
   }
 

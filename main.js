@@ -119,3 +119,88 @@
       }
     });
   });
+
+  /* ============ Contacto — envío de los formularios (FormSubmit) ============
+     Cada <form> ya apunta a su https://formsubmit.co/EMAIL correspondiente
+     (ver index.html). B2B y Soporte se mandan por fetch (sin recargar la
+     página). RRHH lleva un archivo adjunto (el CV) — los adjuntos son poco
+     confiables contra el endpoint /ajax/ de FormSubmit, así que ese formulario
+     se manda de forma nativa (recarga la página) y vuelve a #contacto con un
+     parámetro que detectamos acá para mostrar el mismo mensaje de éxito. */
+  (function initContactForms(){
+    function setStatus(form, tipo, texto) {
+      const el = form.querySelector('.cform-status');
+      if (!el) return;
+      el.textContent = texto;
+      el.className = 'cform-status' + (tipo ? ' is-' + tipo : '');
+    }
+
+    // RRHH: arma el link de retorno (funciona igual en local o en el dominio real)
+    // y deja que el formulario se mande nativo, sin interceptarlo. Si se abre
+    // el archivo directo (file://) no hay origin real — mejor no mandar
+    // "_next" en ese caso que mandar un link roto (FormSubmit rechaza el
+    // envío entero si "_next" no es una URL válida).
+    const rrhhNext = document.getElementById('rrhh-next');
+    if (rrhhNext) {
+      if (location.protocol.startsWith('http')) {
+        rrhhNext.value = location.origin + location.pathname + '?enviado=rrhh#contacto';
+      } else {
+        rrhhNext.remove();
+      }
+    }
+
+    // Muestra el nombre del PDF/DOC elegido en el botón de adjuntar,
+    // para confirmar visualmente que sí se seleccionó un archivo.
+    const cvInput = document.getElementById('rh-cv');
+    if (cvInput) {
+      const cvLabelText = document.querySelector('label[for="rh-cv"] span');
+      const textoOriginal = cvLabelText ? cvLabelText.textContent : '';
+      cvInput.addEventListener('change', () => {
+        if (!cvLabelText) return;
+        cvLabelText.textContent = cvInput.files.length
+          ? cvInput.files[0].name
+          : textoOriginal;
+      });
+    }
+
+    // B2B y Soporte: interceptados por fetch para no recargar la página.
+    document.querySelectorAll('.cform[action]:not(#form-rrhh)').forEach(form => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('.cform-btn');
+        const originalBtnHTML = btn.innerHTML;
+        btn.disabled = true;
+        btn.textContent = 'Enviando…';
+        setStatus(form, '', '');
+
+        try {
+          const ajaxUrl = form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/');
+          const res = await fetch(ajaxUrl, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' },
+          });
+          if (!res.ok) throw new Error('formsubmit-error');
+
+          setStatus(form, 'ok', '¡Gracias! Recibimos tu mensaje y te vamos a responder a la brevedad.');
+          form.reset();
+        } catch (err) {
+          console.error('Contacto:', err);
+          setStatus(form, 'err', 'Hubo un problema al enviar. Probá de nuevo o escribinos directamente por mail.');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = originalBtnHTML;
+        }
+      });
+    });
+
+    // Si volvimos acá después de un envío nativo de RRHH, mostramos el
+    // mismo mensaje de éxito y activamos esa pestaña.
+    if (location.search.includes('enviado=rrhh')) {
+      const rrhhTab = document.querySelector('.ctab[data-tab="rrhh"]');
+      const rrhhForm = document.getElementById('form-rrhh');
+      if (rrhhTab) rrhhTab.click();
+      if (rrhhForm) setStatus(rrhhForm, 'ok', '¡Gracias! Recibimos tu postulación y tu CV — te contactamos si surge una oportunidad.');
+      history.replaceState(null, '', location.pathname + location.hash);
+    }
+  })();

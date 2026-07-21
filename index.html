@@ -5,6 +5,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cylgem — Fabricación electrónica automotriz</title>
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png" />
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -19,7 +23,7 @@
   <nav class="nav" id="nav" style="opacity: 0">
     <div class="nav-inner">
       <a href="#top" class="brand">
-        <img src="img/logo.png" alt="Cylgem Logo" class="brand-logo" />
+        <img src="img/logo.png" data-i18n-alt="chrome.logo.alt" alt="Cylgem Logo" class="brand-logo" />
       </a>
       <ul class="nav-links">
         <li><a href="#empresa" data-i18n="nav.nosotros">Nosotros</a></li>
@@ -29,12 +33,12 @@
         <li><a href="#productos" data-i18n="nav.productos">Productos</a></li>
         <li><a href="#contacto" data-i18n="nav.contacto">Contacto</a></li>
       </ul>
-      <button class="lang-toggle" id="langToggle" type="button" aria-label="Cambiar idioma / Switch language">
-        <span class="lang-opt" data-lang="es">ES</span>
-        <span class="lang-opt" data-lang="en">EN</span>
+      <button class="lang-toggle" id="langToggle" type="button" data-i18n-aria="nav.lang.aria" aria-label="Cambiar idioma / Switch language">
+        <span class="lang-opt" data-lang="es" data-i18n="nav.lang.es.short">ES</span>
+        <span class="lang-opt" data-lang="en" data-i18n="nav.lang.en.short">EN</span>
       </button>
       <a href="admin.html" class="cta" data-i18n="nav.cta">Clientes Cylgem <span class="arr">→</span></a>
-      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+      <button class="nav-toggle" id="navToggle" data-i18n-aria="nav.hamburger.aria" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
         <span></span>
         <span></span>
         <span></span>
@@ -50,9 +54,9 @@
       <li><a href="#productos" data-i18n="nav.productos">Productos</a></li>
       <li><a href="#contacto" data-i18n="nav.contacto">Contacto</a></li>
       <li>
-        <button class="mobile-lang-toggle" id="mobileLangToggle" type="button" aria-label="Cambiar idioma / Switch language">
-          <span class="lang-opt" data-lang="es">Español</span>
-          <span class="lang-opt" data-lang="en">English</span>
+        <button class="mobile-lang-toggle" id="mobileLangToggle" type="button" data-i18n-aria="nav.lang.aria" aria-label="Cambiar idioma / Switch language">
+          <span class="lang-opt" data-lang="es" data-i18n="nav.lang.es.long">Español</span>
+          <span class="lang-opt" data-lang="en" data-i18n="nav.lang.en.long">English</span>
         </button>
       </li>
       <li><a href="admin.html" class="mobile-cta" data-i18n="nav.cta">Clientes Cylgem <span class="arr">→</span></a></li>
@@ -62,13 +66,13 @@
   <!-- ========= HERO ========= -->
   <header class="hero" id="top">
     <div class="bg" id="heroBg">
-      <div class="bg-slide"
-        style="background-image: linear-gradient(180deg, rgba(5,5,5,.45) 0%, rgba(5,5,5,.3) 40%, rgba(5,5,5,.6) 100%), url('img/edificio.png')">
+      <div class="bg-slide" data-i18n-bg="hero.img.1"
+        style="background-image: linear-gradient(180deg, rgba(5,5,5,.45) 0%, rgba(5,5,5,.3) 40%, rgba(5,5,5,.6) 100%), url('img/edificio.webp')">
       </div>
-      <div class="bg-slide"
-        style="background-image: linear-gradient(180deg, rgba(5,5,5,.45) 0%, rgba(5,5,5,.3) 40%, rgba(5,5,5,.6) 100%), url('img/plantahero1.png')">
+      <div class="bg-slide" data-i18n-bg="hero.img.2"
+        style="background-image: linear-gradient(180deg, rgba(5,5,5,.45) 0%, rgba(5,5,5,.3) 40%, rgba(5,5,5,.6) 100%), url('img/plantahero1.webp')">
       </div>
-      <div class="bg-slide"
+      <div class="bg-slide" data-i18n-bg="hero.img.3"
         style="background-image: linear-gradient(180deg, rgba(5,5,5,.45) 0%, rgba(5,5,5,.3) 40%, rgba(5,5,5,.6) 100%), url('header/Generated Image May 13, 2026 - 10_12PM.jpg')">
       </div>
     </div>
@@ -77,48 +81,46 @@
     <div class="hero-inner">
       <div class="hero-text-slider">
         <div class="hero-text-slide">
-          <div class="hero-eyebrow"><span class="pip"></span>40 años en el mercado argentino</div>
+          <div class="hero-eyebrow" data-i18n="hero.eyebrow.1">40 años de trayectoria acompañando el desarrollo electrónico de nuestro país.</div>
           <h1 data-i18n="hero.h1.1">
             Somos el socio industrial<br />
-            que las grandes marcas eligen<br />
-            <span class="em">para fabricar</span>.
+            que las grandes marcas<br />
+            <span class="em">eligen</span>.
           </h1>
-          <p class="sub">
-            Renault, Volkswagen, Toyota, Mercedes Benz y más de 25 empresas líderes confían en Cylgem
-            para el desarrollo y producción de sus componentes electrónicos.
+          <p class="sub" data-i18n="hero.sub.1">
+            Manufactura, innovación electrónica, para clientes exigentes.<br />
+            Toyota, Mercedes Benz, Volkswagen, Signify, Lightera, Yazaki, BGH, entre muchas más.
           </p>
         </div>
         <div class="hero-text-slide">
-          <div class="hero-eyebrow"><span class="pip"></span>Manufactura electrónica para la industria automotriz</div>
+          <div class="hero-eyebrow" data-i18n="hero.eyebrow.2">Cultura y valores</div>
           <h1 data-i18n="hero.h1.2">
             Fabricamos la electrónica<br />
             que mueve a la <span class="em">industria automotriz</span>.
           </h1>
-          <p class="sub">
-            Tu producto, nuestra planta. Módulos electrónicos a medida para terminales OEM
-            y empresas industriales, con trazabilidad unitaria.
+          <p class="sub" data-i18n="hero.sub.2">
+            Tenemos una cultura de trabajo en equipo, fomentamos la creatividad, la diversidad de criterios,
+            la participación y la mejora continua. Enfocados en la satisfacción de nuestros clientes.
           </p>
         </div>
         <div class="hero-text-slide">
-          <div class="hero-eyebrow"><span class="pip"></span>Ingeniería y desarrollo a medida</div>
+          <div class="hero-eyebrow" data-i18n="hero.eyebrow.3">Ingeniería y desarrollo a medida</div>
           <h1 data-i18n="hero.h1.3">
             Cada circuito es<br />
             una solución diseñada para<br />
             <span class="em">tu proyecto</span>.
           </h1>
-          <p class="sub">
+          <p class="sub" data-i18n="hero.sub.3">
             Del esquemático al producto final. Prototipado rápido, validación en laboratorio propio
             y documentación completa en cada entrega.
           </p>
         </div>
       </div>
       <div class="hero-actions reveal in" data-d="3">
-        <a href="mailto:comercial@cylgem.com.ar" class="btn dark" data-i18n="hero.btn.proyecto">Empezar un proyecto <span class="arr">→</span></a>
+        <a href="#contacto" class="btn dark" data-i18n="hero.btn.proyecto">Contáctanos <span class="arr">→</span></a>
         <a href="#empresa" class="btn ghost-light" data-i18n="hero.btn.empresa">Conocer la empresa</a>
       </div>
     </div>
-
-    <div class="scroll-cue">Scroll</div>
   </header>
 
   <!-- ========= CURTAIN STACK ========= -->
@@ -132,15 +134,15 @@
 
         <!-- Izquierda -->
         <div class="qs-left">
-          <div class="qs-eyebrow sec-anim" data-d="1" data-i18n="qs.eyebrow">Quiénes somos · 40 años</div>
-          <h2 class="qs-title sec-anim" data-d="1">
-            Una compañía argentina con estándares globales.
+          <div class="qs-eyebrow sec-anim" data-d="1" data-i18n="qs.eyebrow">Quiénes somos</div>
+          <h2 class="qs-title sec-anim" data-d="1" data-i18n="qs.title">
+            Una compañía Argentina con estándares globales.
           </h2>
-          <p class="qs-intro sec-anim" data-d="2">
-            Fundada en 1986, Cylgem S.A. cumple <strong>40 años</strong> diseñando y fabricando componentes electrónicos a medida desde Buenos Aires. Somos una compañía argentina que opera con estándares globales: planta propia, líneas SMT automatizadas y laboratorio de ensayos, bajo un sistema de gestión certificado internacionalmente.
+          <p class="qs-intro sec-anim" data-d="2" data-i18n="qs.intro1">
+            Fundada en 1986, Cylgem S.A. diseña y fabrica productos electrónicos para las principales marcas, de distintos sectores industriales, como automotriz, lighting, IOT, energía, línea blanca, etc. Con una planta moderna y con los mayores estándares internacionales desarrolla, produce y testea piezas electrónicas.
           </p>
           <p class="qs-intro sec-anim" data-d="3" data-i18n="qs.intro2">
-            A lo largo de cuatro décadas nos consolidamos como proveedores de algunas de las empresas más prestigiosas de Argentina y del mundo. Trabajar junto a líderes de distintos sectores nos dio un <em>know-how</em>  transversal y profundo, que hoy aplicamos en industrias como:
+            A lo largo de cuatro décadas nos consolidamos como proveedores de algunas de las empresas más prestigiosas de Argentina y del mundo. Trabajar junto a líderes de distintos sectores adquirimos un know-how transversal y profundo, que hoy aplicamos en todas nuestras actividades.
           </p>
           <ul class="qs-sectors sec-anim" data-d="4">
             <li class="qs-sector">
@@ -180,7 +182,7 @@
 
         <!-- Derecha: Imagen planta -->
         <div class="qs-plant-wrap sec-anim" data-d="3">
-          <div class="img-slot qs-plant-img" data-label="Planta Cylgem · Buenos Aires" style="background-image: url('img/planta.png'); background-size: cover; background-position: center;">
+          <div class="img-slot qs-plant-img" data-i18n-bg="qs.img" data-label="Planta Cylgem · Buenos Aires" style="background-image: url('img/planta.webp'); background-size: cover; background-position: center;">
           </div>
         </div>
 
@@ -202,147 +204,91 @@
               <span class="hist-dot"></span>
               <div class="hist-body">
                 <span class="hist-kicker" data-i18n="hist.kicker.fundacion">Fundación</span>
-                <span class="hist-year">1986</span>
+                <span class="hist-year" data-i18n="hist.1986.year">1986</span>
                 <p class="hist-desc" data-i18n="hist.1986">Cylgem S.A. nace como una empresa dedicada al desarrollo y producción de equipos electrónicos para automóviles.</p>
               </div>
             </div>
             <div class="hist-item">
               <span class="hist-dot"></span>
               <div class="hist-body">
-                <span class="hist-year">1988</span>
-                <p class="hist-desc" data-i18n="hist.1988">Se convierte en una de las primeras empresas argentinas en incorporar equipamiento de tecnología SMD.</p>
-              </div>
-            </div>
-            <div class="hist-item">
-              <span class="hist-dot"></span>
-              <div class="hist-body">
-                <span class="hist-year">1990</span>
+                <span class="hist-year" data-i18n="hist.1990.year">1990</span>
                 <p class="hist-desc" data-i18n="hist.1990">Certifica ISO 9001.</p>
               </div>
             </div>
             <div class="hist-item">
               <span class="hist-dot"></span>
               <div class="hist-body">
-                <span class="hist-year">1992</span>
-                <p class="hist-desc" data-i18n="hist.1992">Entrega la primera pieza OEM a la firma Renault.</p>
-              </div>
-            </div>
-            <div class="hist-item">
-              <span class="hist-dot"></span>
-              <div class="hist-body">
-                <span class="hist-year">1995</span>
+                <span class="hist-year" data-i18n="hist.1995.year">1995</span>
                 <p class="hist-desc" data-i18n="hist.1995">Entrega la primera pieza OEM a la firma Volkswagen.</p>
               </div>
             </div>
             <div class="hist-item">
               <span class="hist-dot"></span>
               <div class="hist-body">
-                <span class="hist-year">1996</span>
-                <p class="hist-desc" data-i18n="hist.1996">Inicia abastecimiento a la firma Robert Bosch.</p>
-              </div>
-            </div>
-            <div class="hist-item">
-              <span class="hist-dot"></span>
-              <div class="hist-body">
-                <span class="hist-year">2000</span>
-                <p class="hist-desc" data-i18n="hist.2000">Entrega la primera pieza OES a la firma Ford.</p>
-              </div>
-            </div>
-            <div class="hist-item">
-              <span class="hist-dot"></span>
-              <div class="hist-body">
-                <span class="hist-year">2001</span>
+                <span class="hist-year" data-i18n="hist.2001.year">2001</span>
                 <p class="hist-desc" data-i18n="hist.2001">Toma la representación para Argentina de la firma italiana Cobra AT.<br>Entrega la primera pieza OES a la firma PSA Peugeot-Citroën.</p>
               </div>
             </div>
             <div class="hist-item">
               <span class="hist-dot"></span>
               <div class="hist-body">
-                <span class="hist-year">2002</span>
-                <p class="hist-desc" data-i18n="hist.2002">Productos Cylgem exportados a México por Volkswagen.</p>
-              </div>
-            </div>
-            <div class="hist-item">
-              <span class="hist-dot"></span>
-              <div class="hist-body">
-                <span class="hist-year">2003</span>
+                <span class="hist-year" data-i18n="hist.2003.year">2003</span>
                 <p class="hist-desc" data-i18n="hist.2003">Incorpora su primera línea completa de montaje SMT.</p>
               </div>
             </div>
             <div class="hist-item">
               <span class="hist-dot"></span>
               <div class="hist-body">
-                <span class="hist-year">2005</span>
+                <span class="hist-year" data-i18n="hist.2005.year">2005</span>
                 <p class="hist-desc" data-i18n="hist.2005">Desarrolla su primer producto fuera de la industria automotriz (controlador electrónico para máquinas expendedoras de agua Taragüi).</p>
               </div>
             </div>
             <div class="hist-item">
               <span class="hist-dot"></span>
               <div class="hist-body">
-                <span class="hist-year">2006</span>
-                <p class="hist-desc" data-i18n="hist.2006">Reequipamiento de laboratorio para ampliar capacidad de testeo y medición.</p>
-              </div>
-            </div>
-            <div class="hist-item">
-              <span class="hist-dot"></span>
-              <div class="hist-body">
-                <span class="hist-year">2007</span>
-                <p class="hist-desc" data-i18n="hist.2007">Ampliación de planta.</p>
-              </div>
-            </div>
-            <div class="hist-item">
-              <span class="hist-dot"></span>
-              <div class="hist-body">
-                <span class="hist-year">2008</span>
+                <span class="hist-year" data-i18n="hist.2008.year">2008</span>
                 <p class="hist-desc" data-i18n="hist.2008">Certifica ISO/TS 16949.</p>
               </div>
             </div>
             <div class="hist-item">
               <span class="hist-dot"></span>
               <div class="hist-body">
-                <span class="hist-year">2013</span>
-                <p class="hist-desc" data-i18n="hist.2013">Redefine su estrategia comercial y se lanza a captar nuevos mercados.</p>
-              </div>
-            </div>
-            <div class="hist-item">
-              <span class="hist-dot"></span>
-              <div class="hist-body">
-                <span class="hist-year">2014</span>
+                <span class="hist-year" data-i18n="hist.2014.year">2014</span>
                 <p class="hist-desc" data-i18n="hist.2014">Comienza la producción de controles remotos de aire acondicionado para la industria de Tierra del Fuego.</p>
               </div>
             </div>
             <div class="hist-item">
               <span class="hist-dot"></span>
               <div class="hist-body">
-                <span class="hist-year">2015</span>
+                <span class="hist-year" data-i18n="hist.2015.year">2015</span>
                 <p class="hist-desc" data-i18n="hist.2015">Implementa presión positiva en el área de producción e incorpora su segunda línea de montaje SMT.</p>
               </div>
             </div>
             <div class="hist-item">
               <span class="hist-dot"></span>
               <div class="hist-body">
-                <span class="hist-year">2016</span>
+                <span class="hist-year" data-i18n="hist.2016.year">2016</span>
                 <p class="hist-desc" data-i18n="hist.2016">Entrega su primera pieza OEM a Mercedes Benz.<br>Entrega su primera pieza OES a Toyota.</p>
               </div>
             </div>
             <div class="hist-item">
               <span class="hist-dot"></span>
               <div class="hist-body">
-                <span class="hist-year">2018</span>
+                <span class="hist-year" data-i18n="hist.2018.year">2018</span>
                 <p class="hist-desc" data-i18n="hist.2018">Comienza la producción del módulo TFT para Yazaki-Toyota.</p>
               </div>
             </div>
             <div class="hist-item">
               <span class="hist-dot"></span>
               <div class="hist-body">
-                <span class="hist-year">2022</span>
+                <span class="hist-year" data-i18n="hist.2022.year">2022</span>
                 <p class="hist-desc" data-i18n="hist.2022">Incorpora nuevo equipamiento productivo y una cámara de shock térmico para ensayos automotrices.</p>
               </div>
             </div>
             <div class="hist-item">
               <span class="hist-dot"></span>
               <div class="hist-body">
-                <span class="hist-year">2024</span>
+                <span class="hist-year" data-i18n="hist.2024.year">2024</span>
                 <p class="hist-desc" data-i18n="hist.2024">Comienza el abastecimiento de piezas de iluminación a la empresa Signify (ex Philips) y certifica la norma internacional de cuidado del medio ambiente ISO 14001.</p>
               </div>
             </div>
@@ -350,8 +296,8 @@
               <span class="hist-dot"></span>
               <div class="hist-body">
                 <span class="hist-kicker" data-i18n="hist.kicker.hoy">Hoy</span>
-                <span class="hist-year">2026</span>
-                <p class="hist-desc" data-i18n="hist.2026">40 años en el mercado, fabricando electrónica para la industria automotriz e industrial.</p>
+                <span class="hist-year" data-i18n="hist.2026.year">2026</span>
+                <p class="hist-desc" data-i18n="hist.2026">Comienza la ampliación de su planta industrial, llevándola de 1120 m² a 2000 m².</p>
               </div>
             </div>
           </div>
@@ -414,7 +360,7 @@
             </div>
             <div class="cap-card-body">
               <h3 class="cap-card-title" data-i18n="cap.card1.title">Ingeniería</h3>
-              <p class="cap-card-text" data-i18n="cap.card1.text">Un departamento en constante actualización en el uso de las distintas herramientas de hardware y software, que nos permite cumplir con pedidos de desarrollo para un amplio abanico de sectores, destacándose la industria automotriz. Todos los desarrollos se documentan y monitorean diariamente, y los ensayos de validación requeridos se realizan en nuestro moderno laboratorio.</p>
+              <p class="cap-card-text" data-i18n="cap.card1.text">Un departamento en constante actualización en el uso de las distintas herramientas de hardware y software, nos permite cumplir con pedidos de desarrollo para un amplio abanico de sectores. Todos los desarrollos se documentan y monitorean diariamente, y los ensayos de validación requeridos se realizan en su gran mayoría en nuestro moderno laboratorio.</p>
             </div>
           </div>
 
@@ -426,7 +372,7 @@
             </div>
             <div class="cap-card-body">
               <h3 class="cap-card-title" data-i18n="cap.card2.title">Producción</h3>
-              <p class="cap-card-text" data-i18n="cap.card2.text">Una política de reinversión de utilidades nos permite contar con una de las plantas más modernas del país. El equipamiento es siempre joven y contempla todos los avances tecnológicos necesarios para abastecer a las terminales automotrices. Todo el personal está capacitado para el uso de todas las tecnologías aplicadas.</p>
+              <p class="cap-card-text" data-i18n="cap.card2.text">Una política de reinversión de utilidades nos permite contar con una de las plantas más modernas del país. El equipamiento es siempre joven y contempla todos los avances tecnológicos necesarios para abastecer a nuestros exigentes clientes. Todo el personal está capacitado para el uso de todas las tecnologías aplicadas.</p>
             </div>
           </div>
 
@@ -438,7 +384,7 @@
             </div>
             <div class="cap-card-body">
               <h3 class="cap-card-title" data-i18n="cap.card3.title">Aseguramiento de la calidad</h3>
-              <p class="cap-card-text" data-i18n="cap.card3.text">El objetivo que persigue nuestro departamento de calidad es la excelencia; por eso su principal misión es inculcar en nuestro personal el concepto de mejora continua. La calidad se obtiene como la suma de todos los procesos, desde el diseño hasta el detalle más insignificante.</p>
+              <p class="cap-card-text" data-i18n="cap.card3.text">El objetivo que persigue nuestro departamento de calidad es la excelencia; por eso su principal misión es inculcar en nuestro personal el concepto de mejora continua y 5S. La calidad se obtiene como la suma de todos los procesos, desde el diseño hasta el detalle más insignificante.</p>
             </div>
           </div>
 
@@ -448,17 +394,17 @@
         <div class="cap-gallery">
           <div class="cap-img-item">
             <div class="cap-img-frame">
-              <img src="img/placas.png" alt="Placas electrónicas" />
+              <img src="img/placas.webp" data-i18n-alt="cap.gallery.alt.1" alt="Placas electrónicas" />
             </div>
           </div>
           <div class="cap-img-item">
             <div class="cap-img-frame">
-              <img src="img/tirasled.jpg" alt="Tiras LED" />
+              <img src="img/tirasled.webp" data-i18n-alt="cap.gallery.alt.2" alt="Tiras LED" />
             </div>
           </div>
           <div class="cap-img-item">
             <div class="cap-img-frame">
-              <img src="img/YAZAKI.png" alt="Accesorios electrónicos para vehículos" />
+              <img src="img/yazaki-producto.webp" data-i18n-alt="cap.gallery.alt.3" alt="Accesorios electrónicos para vehículos" />
             </div>
           </div>
         </div>
@@ -483,13 +429,13 @@
         <!-- Certificado TÜV destacado, con verificación -->
         <div class="tuv-card">
           <div class="tuv-badge">
-            <img src="img/logo_Tuv_iso9001_iso14001.jpg"
+            <img src="img/tuv-badge.webp" data-i18n-alt="certs.tuv.badge.alt"
                  alt="Certificado TÜV Rheinland — Sistema de Gestión ISO 9001:2015 e ISO 14001:2015" />
           </div>
           <div class="tuv-body">
             <div class="tuv-eyebrow" data-i18n="certs.verifiable">Certificado verificable</div>
-            <div class="tuv-id">ID 9108631985</div>
-            <a class="tuv-verify" href="https://www.certipedia.com/quality_marks/9108631985"
+            <div class="tuv-id" data-i18n="certs.tuv.id">ID 9108631985</div>
+            <a class="tuv-verify" data-i18n-href="certs.tuv.verify.href" href="https://www.certipedia.com/quality_marks/9108631985"
                target="_blank" rel="noopener noreferrer">
               <span data-i18n="certs.verify">Verificar certificado <span class="arr">→</span></span>
             </a>
@@ -499,17 +445,23 @@
         <!-- Normas ISO acreditadas -->
         <div class="iso-list">
           <div class="iso-item">
-            <img src="img/pngwing.com (5).png" alt="ISO 9001:2015" />
+            <img src="img/iso9001-badge.webp" data-i18n-alt="certs.iso9001.name" alt="ISO 9001:2015" />
             <div class="iso-text">
-              <div class="iso-name">ISO 9001:2015</div>
+              <div class="iso-name" data-i18n="certs.iso9001.name">ISO 9001:2015</div>
               <p class="iso-desc" data-i18n="certs.iso9001.desc">Gestión de la calidad: procesos consistentes y mejora continua.</p>
+              <a class="iso-link" data-i18n-href="certs.iso9001.pdf.href" href="certificados/ISO_9001.pdf" target="_blank" rel="noopener">
+                <span data-i18n="certs.view">Ver certificado</span>
+              </a>
             </div>
           </div>
           <div class="iso-item">
-            <img src="img/pngwing.com (6).png" alt="ISO 14001:2015" />
+            <img src="img/iso14001-badge.webp" data-i18n-alt="certs.iso14001.name" alt="ISO 14001:2015" />
             <div class="iso-text">
-              <div class="iso-name">ISO 14001:2015</div>
+              <div class="iso-name" data-i18n="certs.iso14001.name">ISO 14001:2015</div>
               <p class="iso-desc" data-i18n="certs.iso14001.desc">Gestión ambiental: producción sostenible y responsable.</p>
+              <a class="iso-link" data-i18n-href="certs.iso14001.pdf.href" href="certificados/ISO_14001.pdf" target="_blank" rel="noopener">
+                <span data-i18n="certs.view">Ver certificado</span>
+              </a>
             </div>
           </div>
         </div>
@@ -525,135 +477,10 @@
       <h3 class="carousel-title" data-i18n="cli.title">La industria confía en Cylgem</h3>
         <p class="carousel-subtitle" data-i18n="cli.subtitle">Las mayores marcas automotrices y proveedores globales eligen nuestras soluciones</p>
         <div class="carousel-wrapper">
-          <div class="carousel-track">
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/my-renault-svgrepo-com.svg" alt="Renault" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Renault</div><ul class="cb-list"><li data-i18n="cli.temporizadores">Temporizadores y alarmas</li><li data-i18n="cli.alarmaOES">Alarma OES</li><li data-i18n="cli.sensorEst">Sensor estacionamiento</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/volkswagen-svgrepo-com.svg" alt="Volkswagen" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Volkswagen</div><ul class="cb-list"><li data-i18n="cli.confort">Módulos de confort</li><li data-i18n="cli.alarmaOES">Alarma OES</li><li data-i18n="cli.especiales">Componentes especiales</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/ford-svgrepo-com.svg" alt="Ford" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Ford</div><ul class="cb-list"><li data-i18n="cli.alarmaOES">Alarma OES</li><li data-i18n="cli.cobertura">Cobertura completa</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/toyota-svgrepo-com.svg" alt="Toyota" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Toyota</div><ul class="cb-list"><li data-i18n="cli.hilux">Alarma original Hilux</li><li data-i18n="cli.oem">Componentes OEM</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/mercedes-benz-alt-svgrepo-com.svg" alt="Mercedes Benz" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Mercedes Benz</div><ul class="cb-list"><li data-i18n="cli.plafonier">Plafonier Sprinter</li><li data-i18n="cli.oem">Componentes OEM</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/groupe-psa-logo-png_seeklogo-345262.png" alt="PSA" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">PSA Peugeot</div><ul class="cb-list"><li data-i18n="cli.variadores">Variadores velocidad</li><li data-i18n="cli.alarmaOES">Alarma OES</li><li data-i18n="cli.sensores">Sensores</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/nissan-svgrepo-com.svg" alt="Nissan" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Nissan</div><ul class="cb-list"><li data-i18n="cli.espejos">Control espejos Tiida</li><li data-i18n="cli.cierre">Cierre automático</li><li data-i18n="cli.seguridad">Seguridad electrónica</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/chrysler-svgrepo-com.svg" alt="Chrysler" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Chrysler</div><ul class="cb-list"><li data-i18n="cli.alarmaOES">Alarma OES</li><li data-i18n="cli.cobertura">Cobertura completa</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/subaru-svgrepo-com.svg" alt="Subaru" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Subaru</div><ul class="cb-list"><li data-i18n="cli.alarmaOES">Alarma OES</li><li data-i18n="cli.oem">Componentes OEM</li></ul></div>
-              </div>
-            </div>
-
-            <!-- Duplicado para efecto infinito -->
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/my-renault-svgrepo-com.svg" alt="Renault" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Renault</div><ul class="cb-list"><li data-i18n="cli.temporizadores">Temporizadores y alarmas</li><li data-i18n="cli.alarmaOES">Alarma OES</li><li data-i18n="cli.sensorEst">Sensor estacionamiento</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/volkswagen-svgrepo-com.svg" alt="Volkswagen" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Volkswagen</div><ul class="cb-list"><li data-i18n="cli.confort">Módulos de confort</li><li data-i18n="cli.alarmaOES">Alarma OES</li><li data-i18n="cli.especiales">Componentes especiales</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/ford-svgrepo-com.svg" alt="Ford" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Ford</div><ul class="cb-list"><li data-i18n="cli.alarmaOES">Alarma OES</li><li data-i18n="cli.cobertura">Cobertura completa</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/toyota-svgrepo-com.svg" alt="Toyota" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Toyota</div><ul class="cb-list"><li data-i18n="cli.hilux">Alarma original Hilux</li><li data-i18n="cli.oem">Componentes OEM</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/mercedes-benz-alt-svgrepo-com.svg" alt="Mercedes Benz" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Mercedes Benz</div><ul class="cb-list"><li data-i18n="cli.plafonier">Plafonier Sprinter</li><li data-i18n="cli.oem">Componentes OEM</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/groupe-psa-logo-png_seeklogo-345262.png" alt="PSA" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">PSA Peugeot</div><ul class="cb-list"><li data-i18n="cli.variadores">Variadores velocidad</li><li data-i18n="cli.alarmaOES">Alarma OES</li><li data-i18n="cli.sensores">Sensores</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/nissan-svgrepo-com.svg" alt="Nissan" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Nissan</div><ul class="cb-list"><li data-i18n="cli.espejos">Control espejos Tiida</li><li data-i18n="cli.cierre">Cierre automático</li><li data-i18n="cli.seguridad">Seguridad electrónica</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/chrysler-svgrepo-com.svg" alt="Chrysler" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Chrysler</div><ul class="cb-list"><li data-i18n="cli.alarmaOES">Alarma OES</li><li data-i18n="cli.cobertura">Cobertura completa</li></ul></div>
-              </div>
-            </div>
-
-            <div class="carousel-slide">
-              <div class="carousel-card-inner">
-                <div class="carousel-card-front"><img src="img/subaru-svgrepo-com.svg" alt="Subaru" class="carousel-logo" /></div>
-                <div class="carousel-card-back"><div class="cb-brand">Subaru</div><ul class="cb-list"><li data-i18n="cli.alarmaOES">Alarma OES</li><li data-i18n="cli.oem">Componentes OEM</li></ul></div>
-              </div>
-            </div>
-
+          <div class="carousel-track" id="carouselTrack">
+            <!-- Los logos se renderizan dinámicamente desde la tabla Supabase
+                 client_logos — ver carousel.js. Se arma dos veces (mismo
+                 array) para el loop infinito sin costuras, igual que antes. -->
           </div>
         </div>
       </div><!-- /carousel-section -->
@@ -664,50 +491,45 @@
     <div class="container">
 
       <div class="prod-header">
-        <div class="prod-label" data-i18n="prod.label">Catálogo</div>
-        <div class="prod-header-row">
-          <h2 class="prod-title" data-i18n="prod.title">Productos de la marca</h2>
-          <a href="#contacto" class="prod-cta" data-i18n="prod.cta">Consultar un producto <span class="arr">→</span></a>
-        </div>
+        <div class="prod-label" data-i18n="prod.label">Productos</div>
+        <h2 class="prod-title" data-i18n="prod.title">Nuestras marcas</h2>
+        <p class="prod-intro" data-i18n="prod.intro">Además de los productos que desarrollamos y fabricamos para nuestros clientes corporativos, contamos con una serie de productos propios que comercializamos bajo dos marcas.</p>
       </div>
 
-      <div class="prod-grid">
+      <div class="prod-brands">
 
-        <div class="prod-card">
-          <div class="prod-img" style="background-image: url('img/linea_smt.jpg')"></div>
-          <div class="prod-info">
-            <h3 class="prod-name" data-i18n="prod.name">Producto Cylgem</h3>
-            <p class="prod-desc" data-i18n="prod.desc">Subconjuntos electrónicos completos para terminales OEM y proveedores OES.</p>
-            <a href="#contacto" class="prod-link" data-i18n="prod.link">Consultar <span class="arr">→</span></a>
+        <!-- Cylgem · Fiera — automotriz -->
+        <article class="brand-panel brand-panel--fiera">
+          <div class="brand-stage">
+            <img src="img/Fiera.webp" data-i18n-alt="prod.cylgem.emblem.alt" alt="Fiera, emblema de la línea electrónica automotriz de Cylgem" class="brand-emblem" width="360" height="393" loading="lazy" decoding="async">
           </div>
-        </div>
+          <div class="brand-body">
+            <span class="brand-tag" data-i18n="prod.cylgem.tag">Mercado automotriz</span>
+            <h3 class="brand-name" data-i18n="prod.cylgem.name">Cylgem</h3>
+            <p class="brand-desc" data-i18n="prod.cylgem.desc">Nuestra marca de productos electrónicos propios para el mercado automotriz.</p>
+          </div>
+        </article>
 
-        <div class="prod-card">
-          <div class="prod-img" style="background-image: url('img/linea_smt.jpg')"></div>
-          <div class="prod-info">
-            <h3 class="prod-name" data-i18n="prod.name">Producto Cylgem</h3>
-            <p class="prod-desc" data-i18n="prod.desc">Subconjuntos electrónicos completos para terminales OEM y proveedores OES.</p>
-            <a href="#contacto" class="prod-link" data-i18n="prod.link">Consultar <span class="arr">→</span></a>
+        <!-- I-motion — IoT (recuadro completo clickable) -->
+        <a class="brand-panel brand-panel--imotion" href="https://i-motion.com.ar/" target="_blank" rel="noopener" data-i18n-aria="prod.imotion.panel.aria" aria-label="Visitar Sitio">
+          <div class="brand-stage">
+            <img src="img/imotion.webp" data-i18n-alt="prod.imotion.emblem.alt" alt="i-motion, marca de productos electrónicos conectados para el mercado IoT" class="brand-emblem" width="826" height="1020" loading="lazy" decoding="async">
+            <span class="brand-visit-hint" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </span>
+            <span class="brand-visit" aria-hidden="true">
+              <span class="brand-visit-pill">
+                <span class="brand-visit-label" data-i18n="prod.imotion.link">Visitar i-motion.com.ar</span>
+                <span class="brand-visit-ico">→</span>
+              </span>
+            </span>
           </div>
-        </div>
-
-        <div class="prod-card">
-          <div class="prod-img" style="background-image: url('img/linea_smt.jpg')"></div>
-          <div class="prod-info">
-            <h3 class="prod-name" data-i18n="prod.name">Producto Cylgem</h3>
-            <p class="prod-desc" data-i18n="prod.desc">Subconjuntos electrónicos completos para terminales OEM y proveedores OES.</p>
-            <a href="#contacto" class="prod-link" data-i18n="prod.link">Consultar <span class="arr">→</span></a>
+          <div class="brand-body">
+            <span class="brand-tag" data-i18n="prod.imotion.tag">Mercado IoT</span>
+            <h3 class="brand-name" data-i18n="prod.imotion.name">I-motion</h3>
+            <p class="brand-desc" data-i18n="prod.imotion.desc">Tecnología, automatización y confort para hogares, countries y desarrollos que buscan elevar la experiencia de vivir.</p>
           </div>
-        </div>
-
-        <div class="prod-card">
-          <div class="prod-img" style="background-image: url('img/linea_smt.jpg')"></div>
-          <div class="prod-info">
-            <h3 class="prod-name" data-i18n="prod.name">Producto Cylgem</h3>
-            <p class="prod-desc" data-i18n="prod.desc">Subconjuntos electrónicos completos para terminales OEM y proveedores OES.</p>
-            <a href="#contacto" class="prod-link" data-i18n="prod.link">Consultar <span class="arr">→</span></a>
-          </div>
-        </div>
+        </a>
 
       </div>
     </div>
@@ -719,12 +541,12 @@
     <div class="container">
 
       <div class="sec-label contacto-label sec-anim" data-d="0">
-        <span class="n">/ 06</span><span data-i18n="con.label">Contacto</span><span class="line"></span>
+        <span data-i18n="con.label">Contacto</span><span class="line"></span>
       </div>
 
       <div class="contacto-hero sec-anim" data-d="1">
         <h2 class="h2" data-i18n="con.title">Contactanos.</h2>
-        <p class="contacto-sub" data-i18n="con.sub">Elegí el área con la que querés comunicarte y completá el formulario.</p>
+        <p class="contacto-sub" data-i18n="con.sub">Contanos tu proyecto o tu inquietud y te respondemos a la brevedad.</p>
       </div>
 
       <!-- Selector de formulario -->
@@ -753,7 +575,12 @@
       <div class="cforms sec-anim" data-d="3">
 
         <!-- B2B -->
-        <form class="cform is-active" id="form-b2b" novalidate>
+        <form class="cform is-active" id="form-b2b" action="https://formsubmit.co/martin.castillo4000@gmail.com" method="POST">
+          <!-- TEMPORAL: apuntado a Gmail para probar. Cambiar a cylgem@cylgem.com.ar cuando esté confirmado. -->
+          <input type="hidden" name="_subject" value="[PRUEBA] Nueva consulta — Negocios B2B" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
           <div class="cform-info">
             <div class="cform-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h18M3 12h18M3 17h18"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
@@ -761,41 +588,47 @@
             <h3 data-i18n="con.tab.b2b">Negocios B2B</h3>
             <p data-i18n="con.b2b.desc">Fabricación a medida, contratos OEM/OES, volumen y logística VMI. Nuestro equipo te contactará a la brevedad.</p>
             <div class="cform-contact-data">
-              <div class="ccd-item"><span class="ccd-l" data-i18n="con.lbl.ventas">Ventas</span><span class="ccd-v">ventas@cylgem.com.ar</span></div>
-              <div class="ccd-item"><span class="ccd-l" data-i18n="con.lbl.tel">Tel</span><span class="ccd-v">(+54011) 4687-4691 · Int 102</span></div>
+              <div class="ccd-item"><span class="ccd-l" data-i18n="con.lbl.ventas">Ventas</span><span class="ccd-v" data-i18n="con.b2b.email">cylgem@cylgem.com.ar</span></div>
+              <div class="ccd-item"><span class="ccd-l" data-i18n="con.lbl.tel">Tel</span><span class="ccd-v" data-i18n="con.b2b.tel">(+54011) 4687-4691 · Int 102</span></div>
             </div>
           </div>
           <div class="cform-fields">
             <div class="cf-row">
               <div class="cf-group">
                 <label for="b2b-nombre" data-i18n="con.f.nombre">Nombre y apellido</label>
-                <input type="text" id="b2b-nombre" placeholder="Juan García" required />
+                <input type="text" id="b2b-nombre" name="Nombre y apellido" placeholder="Juan García" data-i18n-ph="con.ph.nombre" required />
               </div>
               <div class="cf-group">
                 <label for="b2b-empresa" data-i18n="con.f.empresa">Empresa</label>
-                <input type="text" id="b2b-empresa" placeholder="Acme S.A." required />
+                <input type="text" id="b2b-empresa" name="Empresa" placeholder="Acme S.A." data-i18n-ph="con.ph.empresa" required />
               </div>
             </div>
             <div class="cf-row">
               <div class="cf-group">
                 <label for="b2b-email" data-i18n="con.f.email">Correo electrónico</label>
-                <input type="email" id="b2b-email" placeholder="juan@empresa.com" required />
+                <input type="email" id="b2b-email" name="Correo electrónico" placeholder="juan@empresa.com" data-i18n-ph="con.ph.email" required />
               </div>
               <div class="cf-group">
                 <label for="b2b-tel" data-i18n="con.f.tel">Teléfono</label>
-                <input type="tel" id="b2b-tel" placeholder="+54 11 0000-0000" />
+                <input type="tel" id="b2b-tel" name="Teléfono" placeholder="+54 11 0000-0000" data-i18n-ph="con.ph.tel" />
               </div>
             </div>
             <div class="cf-group">
               <label for="b2b-msg" data-i18n="con.f.necesitas">Contanos tu idea</label>
-              <textarea id="b2b-msg" rows="4" placeholder="Contanos tu idea…" data-i18n-ph="con.ph.msg" required></textarea>
+              <textarea id="b2b-msg" name="Mensaje" rows="4" placeholder="Contanos tu idea…" data-i18n-ph="con.ph.msg" required></textarea>
             </div>
+            <p class="cform-status" role="status" aria-live="polite"></p>
             <button type="submit" class="cform-btn" data-i18n="con.btn.consulta">Enviar consulta <span class="arr">→</span></button>
           </div>
         </form>
 
         <!-- SOPORTE -->
-        <form class="cform" id="form-soporte" novalidate>
+        <form class="cform" id="form-soporte" action="https://formsubmit.co/martin.castillo4000@gmail.com" method="POST">
+          <!-- TEMPORAL: apuntado a Gmail para probar. Cambiar a serviciotecnico@cylgem.com.ar cuando esté confirmado. -->
+          <input type="hidden" name="_subject" value="[PRUEBA] Nueva consulta — Soporte técnico" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
           <div class="cform-info">
             <div class="cform-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 1 0 20A10 10 0 0 1 12 2z"/><path d="M12 16v-4M12 8h.01"/></svg>
@@ -804,41 +637,48 @@
             <p data-i18n="con.sop.desc">Usuarios finales e instaladores. Te asistimos por teléfono, email o visita presencial si fuera necesario.</p>
             <div class="cform-contact-data">
               <div class="ccd-item"><span class="ccd-l" data-i18n="con.lbl.horario">Horario</span><span class="ccd-v" data-i18n="con.val.horario">Lun–Vie · 8:30–13 hs y 14–17:30 hs</span></div>
-              <div class="ccd-item"><span class="ccd-l" data-i18n="con.lbl.tel">Tel</span><span class="ccd-v">(+54011) 4687-4691 · Int 108</span></div>
-              <div class="ccd-item"><span class="ccd-l" data-i18n="con.lbl.email">Email</span><span class="ccd-v">serviciotecnico@cylgem.com.ar</span></div>
+              <div class="ccd-item"><span class="ccd-l" data-i18n="con.lbl.tel">Tel</span><span class="ccd-v" data-i18n="con.soporte.tel">(+54011) 4687-4691 · Int 108</span></div>
+              <div class="ccd-item"><span class="ccd-l" data-i18n="con.lbl.email">Email</span><span class="ccd-v" data-i18n="con.soporte.email">serviciotecnico@cylgem.com.ar</span></div>
             </div>
           </div>
           <div class="cform-fields">
             <div class="cf-row">
               <div class="cf-group">
                 <label for="st-nombre" data-i18n="con.f.nombre">Nombre y apellido</label>
-                <input type="text" id="st-nombre" placeholder="Juan García" required />
+                <input type="text" id="st-nombre" name="Nombre y apellido" placeholder="Juan García" data-i18n-ph="con.ph.nombre" required />
               </div>
               <div class="cf-group">
                 <label for="st-producto" data-i18n="con.f.producto">Producto / modelo</label>
-                <input type="text" id="st-producto" placeholder="Módulo de alarma XR-200" required />
+                <input type="text" id="st-producto" name="Producto / modelo" placeholder="CAL 475" data-i18n-ph="con.ph.producto" required />
               </div>
             </div>
             <div class="cf-row">
               <div class="cf-group">
                 <label for="st-email" data-i18n="con.f.email">Correo electrónico</label>
-                <input type="email" id="st-email" placeholder="juan@email.com" required />
+                <input type="email" id="st-email" name="Correo electrónico" placeholder="juan@email.com" data-i18n-ph="con.ph.email" required />
               </div>
               <div class="cf-group">
                 <label for="st-tel" data-i18n="con.f.telcont">Teléfono de contacto</label>
-                <input type="tel" id="st-tel" placeholder="+54 11 0000-0000" />
+                <input type="tel" id="st-tel" name="Teléfono de contacto" placeholder="+54 11 0000-0000" data-i18n-ph="con.ph.tel" />
               </div>
             </div>
             <div class="cf-group">
               <label for="st-msg" data-i18n="con.f.problema">Descripción del problema</label>
-              <textarea id="st-msg" rows="4" placeholder="Describí el inconveniente con el mayor detalle posible…" data-i18n-ph="con.ph.problema" required></textarea>
+              <textarea id="st-msg" name="Descripción del problema" rows="4" placeholder="Describí el inconveniente con el mayor detalle posible…" data-i18n-ph="con.ph.problema" required></textarea>
             </div>
+            <p class="cform-status" role="status" aria-live="polite"></p>
             <button type="submit" class="cform-btn" data-i18n="con.btn.consulta">Enviar consulta <span class="arr">→</span></button>
           </div>
         </form>
 
         <!-- RRHH -->
-        <form class="cform" id="form-rrhh" novalidate>
+        <form class="cform" id="form-rrhh" action="https://formsubmit.co/martin.castillo4000@gmail.com" method="POST" enctype="multipart/form-data">
+          <!-- TEMPORAL: apuntado a Gmail para probar. Cambiar a empleo@cylgem.com.ar cuando esté confirmado. -->
+          <input type="hidden" name="_subject" value="[PRUEBA] Nueva postulación — Recursos Humanos" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_next" id="rrhh-next" value="" />
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
           <div class="cform-info">
             <div class="cform-badge">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
@@ -846,35 +686,36 @@
             <h3 data-i18n="con.tab.rrhh">Recursos Humanos</h3>
             <p data-i18n="con.rrhh.desc">Sumate al equipo. Envianos tu CV y te contactamos cuando surja una oportunidad que se ajuste a tu perfil.</p>
             <div class="cform-contact-data">
-              <div class="ccd-item"><span class="ccd-l" data-i18n="con.lbl.email">Email</span><span class="ccd-v">empleo@cylgem.com.ar</span></div>
+              <div class="ccd-item"><span class="ccd-l" data-i18n="con.lbl.email">Email</span><span class="ccd-v" data-i18n="con.rrhh.email">empleo@cylgem.com.ar</span></div>
             </div>
           </div>
           <div class="cform-fields">
             <div class="cf-row">
               <div class="cf-group">
                 <label for="rh-nombre" data-i18n="con.f.nombre">Nombre y apellido</label>
-                <input type="text" id="rh-nombre" placeholder="Juan García" required />
+                <input type="text" id="rh-nombre" name="Nombre y apellido" placeholder="Juan García" data-i18n-ph="con.ph.nombre" required />
               </div>
               <div class="cf-group">
                 <label for="rh-area" data-i18n="con.f.area">Área de interés</label>
-                <input type="text" id="rh-area" placeholder="Ingeniería electrónica, SMT…" />
+                <input type="text" id="rh-area" name="Área de interés" placeholder="Ingeniería electrónica, SMT…" data-i18n-ph="con.ph.area" />
               </div>
             </div>
             <div class="cf-group">
               <label for="rh-email" data-i18n="con.f.email">Correo electrónico</label>
-              <input type="email" id="rh-email" placeholder="juan@email.com" required />
+              <input type="email" id="rh-email" name="Correo electrónico" placeholder="juan@email.com" data-i18n-ph="con.ph.email" required />
             </div>
             <div class="cf-group">
               <label for="rh-msg" data-i18n="con.f.sobrevos">Contanos sobre vos</label>
-              <textarea id="rh-msg" rows="4" placeholder="Experiencia, motivaciones, disponibilidad…" data-i18n-ph="con.ph.sobrevos" required></textarea>
+              <textarea id="rh-msg" name="Contanos sobre vos" rows="4" placeholder="Experiencia, motivaciones, disponibilidad…" data-i18n-ph="con.ph.sobrevos" required></textarea>
             </div>
             <div class="cf-group">
               <label for="rh-cv" class="cf-file-label">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 20h16"/></svg>
                 <span data-i18n="con.f.cv">Adjuntar CV (PDF · DOC)</span>
               </label>
-              <input type="file" id="rh-cv" accept=".pdf,.doc,.docx" class="cf-file-input" />
+              <input type="file" id="rh-cv" name="CV" accept=".pdf,.doc,.docx" class="cf-file-input" />
             </div>
+            <p class="cform-status" role="status" aria-live="polite"></p>
             <button type="submit" class="cform-btn" data-i18n="con.btn.postulacion">Enviar postulación <span class="arr">→</span></button>
           </div>
         </form>
@@ -890,21 +731,21 @@
   <footer class="site-footer">
     <div class="sf-inner">
       <a href="#top" class="sf-brand">
-        <img src="img/logo.png" alt="Cylgem S.A." class="sf-logo" />
+        <img src="img/logo.png" data-i18n-alt="chrome.logo.alt" alt="Cylgem S.A." class="sf-logo" />
       </a>
       <div class="sf-contact">
-        <span class="sf-name">Cylgem S.A.</span>
-        <address class="sf-address">
+        <span class="sf-name" data-i18n="footer.company.name">Cylgem S.A.</span>
+        <address class="sf-address" data-i18n="footer.direccion">
           Andalgalá 1624 · C1440ENH · Buenos Aires · Argentina
         </address>
         <div class="sf-lines">
-          <a href="tel:+541146874691"><span data-i18n="footer.phone">Teléfono:</span> (+54&nbsp;011) 4687-4691</a>
-          <a href="mailto:cylgem@cylgem.com.ar">cylgem@cylgem.com.ar</a>
+          <a href="tel:+541146874691"><span data-i18n="footer.phone">Teléfono:</span> <span data-i18n="footer.tel">(+54&nbsp;011) 4687-4691</span></a>
+          <a href="mailto:cylgem@cylgem.com.ar" data-i18n-mailto="con.b2b.email" data-i18n="con.b2b.email">cylgem@cylgem.com.ar</a>
         </div>
       </div>
     </div>
     <div class="sf-bottom">
-      <span class="sf-copy">© <span id="footerYear">2026</span> Cylgem S.A. — <span data-i18n="footer.rights">Todos los derechos reservados</span></span>
+      <span class="sf-copy">© <span id="footerYear">2026</span> <span data-i18n="footer.company.name">Cylgem S.A.</span> — <span data-i18n="footer.rights">Todos los derechos reservados</span></span>
     </div>
   </footer>
 
@@ -913,113 +754,11 @@
     document.getElementById('footerYear').textContent = new Date().getFullYear();
   </script>
 
-  <!-- CMS: conecta la web con Supabase y aplica el contenido guardado -->
+  <!-- Cliente Supabase compartido — lo usan carousel.js e i18n.js -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script>
-  (async () => {
-    const _db = supabase.createClient(
-      'https://ttcilugbybfekocqpiur.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR0Y2lsdWdieWJmZWtvY3FwaXVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExMzEzMDUsImV4cCI6MjA5NjcwNzMwNX0.E1fFy8Ri6YlCtrvNhJ2o_UpIXMuOY_B9F_STGYHDdqU'
-    );
-
-    // select('*') trae value y, si existe la columna, value_en (sin romper
-    // nada si todavía no la creaste: simplemente no vendrá y cae a español).
-    const { data } = await _db.from('site_content').select('*');
-    if (!data || !data.length) return;
-
-    const rows = {};
-    data.forEach(r => rows[r.key] = r);
-
-    // Elige el texto según idioma; si no hay inglés cargado, usa el español.
-    const pick = (key, lang) => {
-      const r = rows[key];
-      if (!r) return '';
-      if (lang === 'en' && r.value_en) return r.value_en;
-      return r.value || '';
-    };
-
-    // Reemplaza textContent de un elemento
-    const txt = (sel, val) => {
-      if (!val) return;
-      const el = document.querySelector(sel);
-      if (el) el.textContent = val;
-    };
-
-    // Actualiza el texto del eyebrow conservando el punto pip
-    const eyebrow = (idx, val) => {
-      if (!val) return;
-      const slides = document.querySelectorAll('.hero-text-slide');
-      if (!slides[idx]) return;
-      const div = slides[idx].querySelector('.hero-eyebrow');
-      if (!div) return;
-      [...div.childNodes].filter(n => n.nodeType === 3).forEach(n => n.remove());
-      div.appendChild(document.createTextNode(val));
-    };
-
-    // Reemplaza imagen de fondo en un bg-slide (conserva el degradado)
-    const bgImg = (idx, val) => {
-      if (!val) return;
-      const slides = document.querySelectorAll('.bg-slide');
-      if (!slides[idx]) return;
-      slides[idx].style.backgroundImage = slides[idx].style.backgroundImage
-        .replace(/url\([^)]+\)/, `url('${val}')`);
-    };
-
-    // ── Imágenes: no dependen del idioma, se aplican una sola vez ──
-    bgImg(0, rows.hero_imagen_1 && rows.hero_imagen_1.value);
-    bgImg(1, rows.hero_imagen_2 && rows.hero_imagen_2.value);
-    bgImg(2, rows.hero_imagen_3 && rows.hero_imagen_3.value);
-    if (rows.empresa_imagen && rows.empresa_imagen.value) {
-      const img = document.querySelector('.qs-plant-img');
-      if (img) img.style.backgroundImage = `url('${rows.empresa_imagen.value}')`;
-    }
-
-    // ── Contenido textual dependiente del idioma ──
-    // Expuesto globalmente para que el toggle ES/EN (i18n.js) lo reaplique.
-    window.applyDbContent = function (lang) {
-      lang = (lang === 'en' || lang === 'es') ? lang : (window.getLang ? window.getLang() : 'es');
-
-      // Hero
-      eyebrow(0, pick('hero_eyebrow_1', lang));
-      txt('.hero-text-slide:nth-child(1) .sub', pick('hero_sub_1', lang));
-      eyebrow(1, pick('hero_eyebrow_2', lang));
-      txt('.hero-text-slide:nth-child(2) .sub', pick('hero_sub_2', lang));
-      eyebrow(2, pick('hero_eyebrow_3', lang));
-      txt('.hero-text-slide:nth-child(3) .sub', pick('hero_sub_3', lang));
-
-      // Empresa (solo el primer .qs-title / .qs-intro — el resto es estático)
-      txt('.qs-title', pick('empresa_titulo', lang));
-      txt('.qs-intro', pick('empresa_descripcion', lang));
-
-      const stats = document.querySelectorAll('.qs-stat-item');
-      [
-        [0, 'empresa_stat_1_valor', 'empresa_stat_1_label'],
-        [1, 'empresa_stat_2_valor', 'empresa_stat_2_label'],
-        [2, 'empresa_stat_3_valor', 'empresa_stat_3_label'],
-        [3, 'empresa_stat_4_valor', 'empresa_stat_4_label'],
-      ].forEach(([i, vk, lk]) => {
-        if (!stats[i]) return;
-        const v = stats[i].querySelector('.qs-stat-v');
-        const l = stats[i].querySelector('.qs-stat-l');
-        if (v && pick(vk, lang)) v.textContent = pick(vk, lang);
-        if (l && pick(lk, lang)) l.textContent = pick(lk, lang);
-      });
-
-      // Contacto — el email no se traduce
-      const email = pick('contacto_email', 'es');
-      if (email) {
-        document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
-          a.href = `mailto:${email}`;
-        });
-      }
-    };
-
-    // Primera aplicación en el idioma activo (el toggle reaplica luego)
-    window.applyDbContent(window.getLang ? window.getLang() : 'es');
-  })();
-  </script>
 
   <script src="main.js"></script>
+  <script src="carousel.js"></script>
   <script src="i18n.js"></script>
 </body>
 

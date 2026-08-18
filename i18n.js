@@ -130,7 +130,7 @@
     // caché (o, en la primera visita nunca, con el español ya hardcodeado en el HTML).
     try {
       if (typeof supabase === 'undefined') return;
-      const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      //const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
       const { data } = await client.from('site_content').select('key, value, value_en');
       if (data && data.length) {
         const fresh = {};
